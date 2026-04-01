@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Polyaire Portal"/>
+<title>Polyaire Branch Portal</title>
+<style> *{box-sizing:border-box;margin:0;padding:0}:root{--pb:#0054A6;--pb-dark:#003d7a;--pb-light:#e6f0fb;--pg:#f5f6f8;--pborder:rgba(0,84,166,0.15);--pt:#1a1a2e;--pm:#5a6478;--pgreen:#1a7a3c;--pgreen-bg:#eaf5ee;--porange:#b35f00;--porange-bg:#fff3e0;--navy:#0e2a47} html,body{height:100%;overflow:hidden} body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--pg);-webkit-tap-highlight-color:transparent} .app{width:100%;height:100vh;background:var(--pg);display:flex;flex-direction:column;overflow:hidden} .hero-header{background-color:var(--navy);background-size:cover;background-position:center top;flex-shrink:0} .hero-overlay{background:linear-gradient(to bottom,rgba(14,42,71,0.55) 0%,rgba(14,42,71,0.82) 70%,rgba(14,42,71,0.97) 100%);padding:env(safe-area-inset-top,14px) 16px 12px;padding-top:max(env(safe-area-inset-top,0px),14px)} .header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px} .logo{display:flex;align-items:center;gap:8px} .logo-mark{width:32px;height:32px;background:white;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0} .logo-text{color:white;font-size:17px;font-weight:700;letter-spacing:-0.3px} .logo-sub{color:rgba(255,255,255,0.65);font-size:10px;letter-spacing:1px;text-transform:uppercase;display:block;line-height:1;margin-top:1px} .vic-badge{background:rgba(255,255,255,0.18);color:white;font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,0.3);font-weight:500;white-space:nowrap} .hero-tagline{color:rgba(255,255,255,0.75);font-size:11px;letter-spacing:0.5px;margin-bottom:10px;padding-left:2px} .search-bar{position:relative} .search-bar input{width:100%;background:rgba(255,255,255,0.95);border:none;border-radius:8px;padding:10px 14px 10px 38px;font-size:16px;color:var(--pt);outline:none;-webkit-appearance:none} .search-bar input::placeholder{color:#aab} .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--pb);opacity:0.6} .nav{display:flex;background:white;border-bottom:1px solid var(--pborder);flex-shrink:0} .nav-btn{flex:1;padding:10px 4px;font-size:11px;color:var(--pm);background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;border-bottom:2px solid transparent;transition:all 0.15s;-webkit-tap-highlight-color:transparent} .nav-btn.active{color:var(--pb);border-bottom-color:var(--pb)} .nav-btn svg{width:18px;height:18px} .content{flex:1;overflow-y:auto;padding:12px;-webkit-overflow-scrolling:touch} .section-title{font-size:11px;font-weight:600;color:var(--pm);letter-spacing:0.8px;text-transform:uppercase;margin:8px 0 8px 2px} .cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:8px} .cat-tile{background:white;border-radius:12px;border:1px solid var(--pborder);padding:16px 14px;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:12px;-webkit-tap-highlight-color:transparent} .cat-tile:active{transform:scale(0.97)} .cat-tile.active{border:2px solid var(--pb);background:var(--pb-light)} .cat-tile-icon{font-size:26px;flex-shrink:0} .cat-tile-label{font-size:14px;font-weight:600;color:var(--pt);line-height:1.2} .cat-tile-count{font-size:11px;color:var(--pm);margin-top:2px} .brand-row{display:flex;gap:6px;overflow-x:auto;margin-bottom:10px;padding-bottom:2px;-webkit-overflow-scrolling:touch} .brand-row::-webkit-scrollbar{display:none} .brand-chip{white-space:nowrap;padding:5px 12px;border-radius:20px;border:1px solid var(--pborder);background:white;color:var(--pm);font-size:11px;cursor:pointer;flex-shrink:0} .brand-chip.active{background:var(--pb);color:white;border-color:var(--pb)} .product-card{background:white;border-radius:10px;border:1px solid var(--pborder);padding:12px;margin-bottom:8px;cursor:pointer;-webkit-tap-highlight-color:transparent} .product-card:active{background:var(--pb-light);border-color:var(--pb)} .product-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px} .product-name{font-size:13px;font-weight:600;color:var(--pt);line-height:1.3;flex:1;margin-right:8px} .product-sku{font-size:10px;color:var(--pm);font-family:monospace;background:var(--pg);padding:2px 6px;border-radius:4px;white-space:nowrap} .product-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap} .price-tag{font-size:15px;font-weight:700;color:var(--pb)} .kw-pill{font-size:10px;background:var(--porange-bg);color:var(--porange);padding:2px 7px;border-radius:10px} .detail-panel{display:none;position:fixed;inset:0;background:var(--pg);z-index:200;overflow-y:auto;width:100%;-webkit-overflow-scrolling:touch} .detail-panel.open{display:block} .detail-header{background:var(--navy);padding:max(env(safe-area-inset-top,0px),14px) 16px 14px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:10} .back-btn{background:rgba(255,255,255,0.2);border:none;color:white;width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;flex-shrink:0} .detail-title{color:white;font-size:15px;font-weight:600;flex:1;line-height:1.3} .detail-body{padding:12px} .info-card{background:white;border-radius:10px;border:1px solid var(--pborder);padding:14px;margin-bottom:10px} .info-card-title{font-size:11px;font-weight:600;color:var(--pm);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:10px} .info-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--pborder)} .info-row:last-child{border-bottom:none} .info-label{font-size:13px;color:var(--pm)} .info-value{font-size:13px;font-weight:500;color:var(--pt);text-align:right;max-width:60%} .price-block{background:var(--navy);border-radius:10px;padding:16px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center} .price-block-trade{color:white} .price-block-trade .label{font-size:10px;opacity:0.75;text-transform:uppercase;letter-spacing:0.8px} .price-block-trade .amount{font-size:28px;font-weight:700;line-height:1.1} .action-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px} .action-btn{padding:14px;border-radius:10px;border:1.5px solid var(--pb);background:white;color:var(--pb);font-size:13px;font-weight:600;cursor:pointer;text-align:center;-webkit-tap-highlight-color:transparent} .action-btn.primary{background:var(--pb);color:white} .action-btn.full{grid-column:1/-1} .action-btn:active{opacity:0.8} .tag{font-size:10px;padding:3px 8px;border-radius:10px;background:var(--pg);color:var(--pm);border:0.5px solid var(--pborder)} .tag-group{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px} .quote-panel{flex:1;overflow-y:auto;padding:12px;-webkit-overflow-scrolling:touch} .quote-item{background:white;border-radius:10px;border:1px solid var(--pborder);padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px} .quote-item-info{flex:1;min-width:0} .quote-item-name{font-size:13px;font-weight:600;color:var(--pt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .quote-item-sku{font-size:10px;color:var(--pm);font-family:monospace} .quote-qty{display:flex;align-items:center;gap:6px;flex-shrink:0} .qty-btn{width:30px;height:30px;border-radius:6px;border:1px solid var(--pborder);background:var(--pg);color:var(--pb);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent} .qty-display{font-size:14px;font-weight:600;color:var(--pt);min-width:22px;text-align:center} .quote-price{font-size:14px;font-weight:700;color:var(--pb);white-space:nowrap;flex-shrink:0} .quote-total{background:var(--navy);border-radius:10px;padding:14px;color:white;margin-bottom:10px} .quote-total-row{display:flex;justify-content:space-between;margin-bottom:5px;font-size:13px} .quote-total-row.big{font-size:19px;font-weight:700;margin-bottom:0;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.2)} .quote-total-row .muted{opacity:0.7} .empty-state{text-align:center;padding:50px 20px;color:var(--pm)} .empty-state-icon{font-size:40px;margin-bottom:12px;display:block} .empty-state-text{font-size:14px;line-height:1.7} .email-textarea{width:100%;min-height:130px;border:1px solid var(--pborder);border-radius:10px;padding:12px;font-size:15px;font-family:'Segoe UI',system-ui,sans-serif;color:var(--pt);background:white;outline:none;resize:vertical;line-height:1.6;-webkit-appearance:none} .email-textarea:focus{border-color:var(--pb)} .email-textarea::placeholder{color:#aab} .analyse-btn{width:100%;padding:14px;background:var(--pb);color:white;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;-webkit-tap-highlight-color:transparent} .analyse-btn:disabled{opacity:0.6;cursor:not-allowed} .ai-result{display:none} .ai-result.show{display:block} .email-summary-card{background:white;border-radius:10px;border:1px solid var(--pborder);padding:14px;margin-bottom:10px} .email-summary-card .from{font-size:13px;font-weight:600;color:var(--pt);margin-bottom:6px} .email-summary-card .summary-text{font-size:13px;color:var(--pt);line-height:1.6;background:var(--pg);border-radius:8px;padding:10px} .matched-product{background:white;border-radius:10px;border:1.5px solid #c8e0f5;padding:12px;margin-bottom:8px;position:relative} .matched-badge{position:absolute;top:10px;right:10px;font-size:9px;background:var(--pgreen-bg);color:var(--pgreen);padding:2px 7px;border-radius:10px;font-weight:600} .unmatched-product{background:white;border-radius:10px;border:1.5px dashed #f59e0b;padding:12px;margin-bottom:8px} .unmatched-badge{font-size:9px;background:var(--porange-bg);color:var(--porange);padding:2px 7px;border-radius:10px;font-weight:600;display:inline-block;margin-bottom:6px} .ai-add-all-btn{width:100%;padding:14px;background:var(--pgreen);color:white;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:8px;-webkit-tap-highlight-color:transparent} .clear-btn{width:100%;padding:11px;background:white;color:var(--pm);border:1px solid var(--pborder);border-radius:10px;font-size:13px;cursor:pointer} .spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,0.4);border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite} @keyframes spin{to{transform:rotate(360deg)}} .toast{position:fixed;bottom:max(env(safe-area-inset-bottom,20px),20px);left:50%;transform:translateX(-50%);background:var(--pgreen);color:white;padding:12px 22px;border-radius:24px;font-size:13px;font-weight:500;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,0.2)} .toast.show{opacity:1}
+/* InZone Panel */
+.inzone-panel{display:none;position:fixed;inset:0;background:var(--pg);z-index:200;overflow-y:auto;width:100%;-webkit-overflow-scrolling:touch}
+.inzone-panel.open{display:block}
+.inzone-header{background:linear-gradient(135deg,#001f3f 0%,#0054A6 100%);padding:max(env(safe-area-inset-top,0px),14px) 16px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:10}
+.inzone-header .back-btn{background:rgba(255,255,255,0.2);border:none;color:white;width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;flex-shrink:0}
+.inzone-header-text{flex:1}
+.inzone-header-text h2{color:white;font-size:16px;font-weight:700;line-height:1.2}
+.inzone-header-text .sub{color:rgba(255,255,255,0.7);font-size:11px;margin-top:2px}
+.inzone-expiry{background:rgba(255,200,0,0.2);border:1px solid rgba(255,200,0,0.5);color:#ffe066;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.inzone-body{padding:12px}
+.inzone-section{background:white;border-radius:10px;border:1px solid var(--pborder);margin-bottom:10px;overflow:hidden}
+.inzone-section-header{background:var(--navy);padding:10px 14px;font-size:12px;font-weight:700;color:white;letter-spacing:0.3px;display:flex;align-items:center;gap:8px}
+.inzone-section-header span.badge{background:rgba(255,255,255,0.2);font-size:10px;padding:1px 7px;border-radius:10px;font-weight:500}
+.inzone-row{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;border-bottom:0.5px solid var(--pborder);font-size:13px}
+.inzone-row:last-child{border-bottom:none}
+.inzone-row .desc{color:var(--pt);flex:1;padding-right:8px;line-height:1.3}
+.inzone-row .sku{font-family:monospace;font-size:10px;color:var(--pm);margin-top:2px}
+.inzone-row .price{font-weight:700;color:var(--pb);white-space:nowrap;font-size:14px}
+.inzone-note{font-size:11px;color:var(--pm);font-style:italic;background:var(--pg);padding:8px 14px;border-top:0.5px solid var(--pborder)}
+@media(min-width:768px){
+  html,body{overflow:auto}
+  .app{max-width:100%;flex-direction:column}
+  .hero-overlay{padding:20px 40px 20px}
+  .logo-text{font-size:22px}
+  .hero-tagline{font-size:13px}
+  .search-bar input{font-size:15px;padding:12px 18px 12px 44px}
+  .nav{justify-content:flex-start;padding:0 24px;gap:4px}
+  .nav-btn{flex:none;padding:12px 20px;font-size:13px;flex-direction:row;gap:8px}
+  .nav-btn svg{width:16px;height:16px}
+  .content{padding:24px 40px;max-width:1400px;margin:0 auto;width:100%}
+  .quote-panel{padding:24px 40px;max-width:1400px;margin:0 auto;width:100%}
+  .cat-grid{grid-template-columns:repeat(4,1fr);gap:14px}
+  .cat-tile{padding:20px 16px}
+  .cat-tile-icon{font-size:30px}
+  .cat-tile-label{font-size:15px}
+  .detail-panel{max-width:600px;border-right:1px solid var(--pborder)}
+  .inzone-panel{max-width:600px;border-right:1px solid var(--pborder)}
+  .product-card{padding:14px}
+  .product-name{font-size:14px}
+  .price-tag{font-size:16px}
+  .section-title{font-size:12px;margin:12px 0 10px 2px}
+  .email-textarea{min-height:160px;font-size:15px}
+}
+@media(min-width:1200px){
+  .cat-grid{grid-template-columns:repeat(5,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="hero-header" id="heroHeader">
+    <div class="hero-overlay">
+      <div class="header-top">
+        <div class="logo">
+          <div class="logo-mark">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <rect width="22" height="22" rx="4" fill="#0054A6"/>
+              <path d="M4 11C4 7.13 7.13 4 11 4s7 3.13 7 7-3.13 7-7 7-7-3.13-7-7z" fill="white" opacity="0.2"/>
+              <path d="M7 11c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4-4-1.79-4-4z" fill="white"/>
+            </svg>
+          </div>
+          <div>
+            <div class="logo-text"><span style="color:white;font-weight:700;">POLY</span><span style="color:#4aa8ff;font-weight:300;letter-spacing:1px;">BASE</span></div>
+            <span class="logo-sub" style="letter-spacing:1.5px;">by Polyaire &middot; Victoria</span>
+          </div>
+        </div>
+        <div class="vic-badge">Victoria</div>
+      </div>
+      <div class="hero-tagline">Australia's Preferred HVAC Wholesaler</div>
+      <div class="search-bar">
+        <svg class="search-icon" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search products, SKU, brand..." id="searchInput" oninput="handleSearch(this.value)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      </div>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <button class="nav-btn active" onclick="showTab('catalogue',this)">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+      Catalogue
+    </button>
+    <button class="nav-btn" onclick="showTab('email',this)">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      Email
+    </button>
+    <button class="nav-btn" onclick="showTab('quote',this)">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      Quote <span id="quote-count" style="background:var(--pb);color:white;border-radius:10px;padding:0 5px;font-size:9px;margin-left:2px;display:none;"></span>
+    </button>
+    <button class="nav-btn" onclick="showTab('slob',this)">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+      SLOB
+    </button>
+  </nav>
+
+  <div class="content" id="catalogue-tab">
+    <div class="section-title">Categories</div>
+    <div class="cat-grid" id="catGrid"></div>
+    <div id="brandRow" style="display:none;"></div>
+    <div id="productList"></div>
+  </div>
+
+  <div class="content" id="search-tab" style="display:none;">
+    <div id="searchResults">
+      <div class="empty-state">
+        <span class="empty-state-icon">🔍</span>
+        <div class="empty-state-text">Type above to search products, SKUs or brands</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content" id="email-tab" style="display:none;">
+    <div class="section-title">Paste Customer Email</div>
+    <textarea class="email-textarea" id="emailInput" placeholder="Paste the customer's quote request email here...
+
+The AI will read it, identify the products they need, match them to our catalogue and pre-build a quote for you.
+
+Example:
+Hi, I need a quote for 2x 7kw ducted units, a 3.5kw wall split for a bedroom, and AirTouch zoning. Thanks, Dave"></textarea>
+    <button class="analyse-btn" id="analyseBtn" onclick="analyseEmail()">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+      Analyse with AI
+    </button>
+    <div class="ai-result" id="aiResult" style="margin-top:14px;"></div>
+  </div>
+
+  <div class="quote-panel" id="quote-tab" style="display:none;">
+    <div id="quoteItems"></div>
+    <div id="quoteTotal"></div>
+  </div>
+
+  <!-- SLOB TAB -->
+  <div class="content" id="slob-tab" style="display:none;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+      <div class="section-title" style="margin:0;">SLOB Stock — Feb 2026</div>
+      <div style="font-size:10px;background:var(--porange-bg);color:var(--porange);padding:3px 8px;border-radius:10px;font-weight:600;">789 units on hand</div>
+    </div>
+    <input type="text" id="slobSearch" placeholder="Search by SKU, brand or description..."
+      style="width:100%;padding:9px 12px;border:1px solid var(--pborder);border-radius:8px;font-size:14px;outline:none;background:white;color:var(--pt);margin-bottom:10px;display:block;"
+      oninput="filterSlob(this.value)"/>
+    <div id="slobList"></div>
+  </div>
+
+</div>
+
+<!-- DETAIL PANEL -->
+<div class="detail-panel" id="detailPanel">
+  <div class="detail-header">
+    <button class="back-btn" onclick="closeDetail()">&#8592;</button>
+    <div class="detail-title" id="detailTitle"></div>
+  </div>
+  <div class="detail-body" id="detailBody"></div>
+</div>
+
+<!-- INZONE PANEL -->
+<div class="inzone-panel" id="inzonePanel">
+  <div class="inzone-header">
+    <button class="back-btn" onclick="closeInzone()">&#8592;</button>
+    <div class="inzone-header-text">
+      <h2>InZone Flyer</h2>
+      <div class="sub">Edition 16 · Mar–Apr 2026 · VIC Trade Pricing</div>
+    </div>
+    <div class="inzone-expiry">Exp 30 Apr</div>
+  </div>
+  <div class="inzone-body" id="inzoneBody"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const CATS=[
+  {id:'Ducted',label:'Ducted Systems',icon:'🌀'},
+  {id:'Wall Split',label:'Wall Splits',icon:'❄️'},
+  {id:'Gas Heater',label:'Gas Heaters',icon:'🔥'},
+  {id:'Evaporative',label:'Evaporative',icon:'💧'},
+  {id:'Multi Split',label:'Multi Splits',icon:'🔀'},
+  {id:'VRF',label:'VRF',icon:'🏢'},
+  {id:'Pair Coil',label:'Pair Coil',icon:'🔩'},
+  {id:'Controls',label:'Controls',icon:'📱'},
+  {id:'Accessories',label:'Accessories',icon:'🔧'},
+];
+
+// InZone 16 pricing data — valid to 30 Apr 2026
+const INZONE_DATA=[
+  {section:'Midea Vesta Ducted (incl. controller)',note:'All prices include PAR controller. Single phase.',items:[
+    {sku:'DUCMI70IC',desc:'Midea Vesta 7.0kW Ducted',price:1340},
+    {sku:'DUCMI90IC',desc:'Midea Vesta 9.0kW Ducted',price:1743},
+    {sku:'DUCMI105IHC',desc:'Midea Vesta 10.5kW Ducted',price:1923},
+    {sku:'DUCMI125IHC',desc:'Midea Vesta 12.5kW Ducted',price:2324},
+    {sku:'DUCMI140IHC',desc:'Midea Vesta 14.0kW Ducted',price:2557},
+    {sku:'DUCMI170IHC',desc:'Midea Vesta 17.0kW Ducted',price:3063},
+    {sku:'DUCMI170IHC-RO',desc:'Midea Vesta 17.0kW Run-Out',price:2753},
+  ]},
+  {section:'Midea VRF Ducted',items:[
+    {sku:'MDV-V230WN1(AU)',desc:'Midea VRF Ducted 19.5kW Outdoor',price:1928},
+    {sku:'MDV-V250WN1D(AU)-A',desc:'Midea VRF Ducted 22.4kW Outdoor',price:2422},
+  ]},
+  {section:'Samsung Duct-S/S2+ 1Ph (ID only)',items:[
+    {sku:'AC052TNHDKG/SA',desc:'Samsung Ducted 5.2kW',price:1718},
+    {sku:'AC071TNHDKG/SA',desc:'Samsung Ducted 7.1kW',price:1984},
+    {sku:'AC090TNHDKG/SA',desc:'Samsung Ducted 9.0kW',price:2171},
+    {sku:'AC100TNHPKG/SA',desc:'Samsung Ducted 10.0kW',price:2445},
+    {sku:'AC120TNHPKG/SA',desc:'Samsung Ducted 12.0kW',price:2755},
+    {sku:'AC140TNHPKG/SA',desc:'Samsung Ducted 14.0kW',price:3101},
+    {sku:'AC160TNHPKG/SA',desc:'Samsung Ducted 16.0kW',price:3480},
+  ]},
+  {section:'Samsung Duct-S/S2+ 3Ph (ID only)',items:[
+    {sku:'AC180JNHFKH/SA',desc:'Samsung Ducted 18.0kW R410A',price:3779},
+  ]},
+  {section:'ME OmniFlow Ducted (incl. PAR-41MAAM)',note:'All prices include PAR-41MAAM controller.',items:[
+    {sku:'PEAD-M71JAADR1.TH',desc:'ME OmniFlow 7.1kW',price:2275},
+    {sku:'PEA-M100GAA.TH',desc:'ME OmniFlow 10.0kW',price:3470},
+    {sku:'PEA-M125GAA.TH',desc:'ME OmniFlow 12.5kW',price:3764},
+    {sku:'PEA-M140GAA.TH',desc:'ME OmniFlow 14.0kW',price:4368},
+    {sku:'PEA-M160HAA',desc:'ME OmniFlow 16.0kW',price:4872},
+    {sku:'PEA-M180LAA.TH',desc:'ME OmniFlow 18.0kW',price:5258},
+  ]},
+  {section:'MHI High Static Ducted (controller separate)',note:'RC-E5 and RC-EXZ3A controllers priced separately below.',items:[
+    {sku:'FDU71AVNXWVWH',desc:'MHI Slimline 7.1kW (1Ph)',price:2447},
+    {sku:'FDUA100VH',desc:'MHI Low-Static 10.0kW (1Ph)',price:2388},
+    {sku:'FDU100VH',desc:'MHI High-Static 10.0kW (1Ph)',price:2938},
+    {sku:'FDUA125AVNPWVH',desc:'MHI Low-Static 12.5kW (1Ph)',price:2737},
+    {sku:'FDU125VH',desc:'MHI High-Static 12.5kW (1Ph)',price:3482},
+    {sku:'FDUA140AVNXWWH',desc:'MHI High-Static 14.0kW (1Ph)',price:3978},
+    {sku:'FDUA160AVNXWWH',desc:'MHI High-Static 16.0kW (1Ph)',price:4569},
+    {sku:'RC-E5',desc:'MHI Wired Remote RC-E5',price:90},
+    {sku:'RC-EXZ3A',desc:'MHI Back-Lit Touch Remote RC-EXZ3A',price:120},
+  ]},
+  {section:'Midea Athena Wall Splits (combined ID+OD)',note:'Combined price — includes indoor + outdoor unit.',items:[
+    {sku:'MFEZ20VA',desc:'Midea Athena 2.0kW',price:471},
+    {sku:'MFEZ35VA',desc:'Midea Athena 3.5kW',price:638},
+    {sku:'MFEZ50VA',desc:'Midea Athena 5.0kW',price:914},
+    {sku:'MFEZ60VA',desc:'Midea Athena 6.0kW',price:982},
+    {sku:'MFEZ70VA',desc:'Midea Athena 7.0kW',price:1081},
+    {sku:'MFEZ80VA',desc:'Midea Athena 8.0kW',price:1277},
+  ]},
+  {section:'Midea Venus Indoor Only',items:[
+    {sku:'MFAG20VA-N',desc:'Midea Venus 2.0kW Indoor',price:124},
+    {sku:'MFAG26VA-N',desc:'Midea Venus 2.6kW Indoor',price:171},
+    {sku:'MFAG36VA-N',desc:'Midea Venus 3.6kW Indoor',price:200},
+    {sku:'MFAG51VA-N',desc:'Midea Venus 5.1kW Indoor',price:286},
+    {sku:'MFAG60VA-N',desc:'Midea Venus 6.0kW Indoor',price:298},
+    {sku:'MFAG70VA-N',desc:'Midea Venus 7.0kW Indoor',price:340},
+    {sku:'MFAG80VA-N',desc:'Midea Venus 8.0kW Indoor',price:400},
+  ]},
+  {section:'Midea Multi Outdoor',items:[
+    {sku:'MULMI0250B',desc:'Midea Multi 5.2kW (2 Indoor)',price:863},
+    {sku:'MULMI0371B',desc:'Midea Multi 7.1kW (3 Indoor)',price:1290},
+    {sku:'MULMI0480B',desc:'Midea Multi 8.0kW (4 Indoor)',price:1343},
+    {sku:'MULMI0511B',desc:'Midea Multi 10.5kW (5 Indoor)',price:1880},
+    {sku:'MULMI0513B',desc:'Midea Multi 13.0kW (5 Indoor)',price:1738},
+    {sku:'MULMI0619B',desc:'Midea Multi 19.0kW (6 Indoor)',price:2215},
+  ]},
+  {section:'Samsung AERO Wall Splits (combined ID+OD)',note:'Combined price — includes indoor + outdoor unit.',items:[
+    {sku:'AR09DXFZ (combined)',desc:'Samsung AERO 2.5kW',price:694},
+    {sku:'AR12DXFZ (combined)',desc:'Samsung AERO 3.5kW',price:764},
+    {sku:'AR18DXFZ (combined)',desc:'Samsung AERO 5.0kW',price:965},
+    {sku:'AR24DXFZ (combined)',desc:'Samsung AERO 6.8kW',price:1272},
+    {sku:'AR30DXFZ (combined)',desc:'Samsung AERO 8.0kW',price:1635},
+  ]},
+  {section:'ME AP Wall Splits (combined ID+OD)',note:'Combined price — includes indoor + outdoor unit.',items:[
+    {sku:'MSZ-AP20 (combined)',desc:'ME AP 2.0kW',price:857},
+    {sku:'MSZ-AP25 (combined)',desc:'ME AP 2.5kW',price:905},
+    {sku:'MSZ-AP35 (combined)',desc:'ME AP 3.5kW',price:1072},
+    {sku:'MSZ-AP42 (combined)',desc:'ME AP 4.2kW',price:1286},
+    {sku:'MSZ-AP50 (combined)',desc:'ME AP 5.0kW',price:1469},
+    {sku:'MSZ-AP60 (combined)',desc:'ME AP 6.0kW',price:1713},
+    {sku:'MSZ-AP71 (combined)',desc:'ME AP 7.1kW',price:1822},
+    {sku:'MSZ-AP80 (combined)',desc:'ME AP 7.8kW',price:2230},
+    {sku:'MSZ-AS90 (combined)',desc:'ME AP 9.0kW',price:2511},
+  ]},
+  {section:'AirTouch Controls',items:[
+    {sku:'AT5-8Z',desc:'AirTouch 5 — 8 Zone',price:1220},
+    {sku:'AT5-16Z',desc:'AirTouch 5 — 16 Zone',price:1440},
+    {sku:'AT2-8Z',desc:'AirTouch 2+ — 8 Zone',price:999},
+    {sku:'AT2-16Z',desc:'AirTouch 2+ — 16 Zone',price:1220},
+    {sku:'087',desc:'AirTouch ITS (Intelligent Temp Sensor)',price:96},
+    {sku:'122',desc:'ZoneSwitch 6 Zone Kit',price:146},
+    {sku:'123',desc:'ZoneSwitch 2 Zone Kit',price:65},
+    {sku:'675270',desc:'AirTouch Beam',price:90},
+  ]},
+  {section:'STAARK Pair Coil Standard 20m',items:[
+    {sku:'747111',desc:'1/4 x 3/8 — 20m',price:138},
+    {sku:'747112',desc:'1/4 x 1/2 — 20m',price:179},
+    {sku:'747113',desc:'1/4 x 5/8 — 20m',price:227},
+    {sku:'747114',desc:'3/8 x 5/8 — 20m',price:258},
+    {sku:'747115',desc:'3/8 x 3/4 — 20m',price:359},
+  ]},
+  {section:'STAARK 5m Cuts',items:[
+    {sku:'747511',desc:'1/4 x 3/8 — 5m',price:38},
+    {sku:'747512',desc:'1/4 x 1/2 — 5m',price:47},
+    {sku:'747513',desc:'1/4 x 5/8 — 5m',price:61},
+    {sku:'747514',desc:'3/8 x 5/8 — 5m',price:71},
+  ]},
+  {section:'STAARK Fire Rated Armaflex 13mm 20m',items:[
+    {sku:'747131',desc:'1/4 x 3/8 Armaflex — 20m',price:178},
+    {sku:'747132',desc:'1/4 x 1/2 Armaflex — 20m',price:199},
+    {sku:'747133',desc:'1/4 x 5/8 Armaflex — 20m',price:261},
+    {sku:'747134',desc:'3/8 x 5/8 Armaflex — 20m',price:292},
+    {sku:'747135',desc:'3/8 x 3/4 Armaflex — 20m',price:385},
+  ]},
+  {section:'STAARK Fire Rated 19mm HD',note:'18 metre rolls.',items:[
+    {sku:'757111',desc:'1/4 x 3/8 HD — 18m',price:205},
+    {sku:'757112',desc:'1/4 x 1/2 HD — 18m',price:211},
+    {sku:'757113',desc:'1/4 x 5/8 HD — 18m',price:239},
+    {sku:'757114',desc:'3/8 x 5/8 HD — 18m',price:329},
+    {sku:'757115',desc:'3/8 x 3/4 HD — 18m',price:340},
+  ]},
+];
+
+const slobData=[{"sku":"AJ025RBTDEH/SA","qty":99,"wdv":106.2,"writedown_pct":50,"desc":"MULTI WALL MOUNT 2.5KW AIR FILT ID","brand":"SAMSUNG","warehouse":22},{"sku":"AJ050RBTDEH/SA","qty":57,"wdv":135.0,"writedown_pct":100,"desc":"MULTI WALL MOUNT 5.0KW AIR FILT ID","brand":"SAMSUNG","warehouse":22},{"sku":"CRE6070075GY","qty":30,"wdv":744.47,"writedown_pct":50,"desc":"BONAIRE INTEGRA II EAC VSL75 GREY LARGE","brand":"BONAIRE","warehouse":22},{"sku":"AR09KSFTAWQXSA","qty":17,"wdv":137.72,"writedown_pct":65,"desc":"SSUNG AR09KSFTAWQXSA 2.5BOROCAY HWLL OD","brand":"SAMSUNG","warehouse":27},{"sku":"270869","qty":14,"wdv":413.27,"writedown_pct":100,"desc":"UNIT HEATER TQ516 NATURAL GAS","brand":"BRAEMAR","warehouse":26},{"sku":"RJ070F4HXEA/XSA","qty":12,"wdv":564.95,"writedown_pct":50,"desc":"MULTI REV CYCLE CONDSR 7.0KW CL/8.6KW HT OD","brand":"SAMSUNG","warehouse":22},{"sku":"AC052TNHDKG/SA","qty":11,"wdv":294.54,"writedown_pct":65,"desc":"SSUNG R32 AC052TNHDKG/SA 5.2KW SGL PH ID","brand":"SAMSUNG","warehouse":27},{"sku":"RAV-GM1101DTP-A","qty":11,"wdv":325.09,"writedown_pct":65,"desc":"TOSHIBA R32 DUCTED 10KW ID","brand":"TOSHIBA","warehouse":23},{"sku":"HGD5440020","qty":10,"wdv":605.0,"writedown_pct":50,"desc":"MB4 20U-20KW 4.0 STAR INT EXT NATGAS","brand":"BONAIRE","warehouse":26},{"sku":"AC100TNHDKG/SA","qty":10,"wdv":0,"writedown_pct":100,"desc":"SSUNG R32 AC100TNHDKG/SA 10KW ID","brand":"SAMSUNG","warehouse":27},{"sku":"AR09KSFTAWQNSA","qty":10,"wdv":0,"writedown_pct":100,"desc":"SSUNG AR09KSFTAWQNSA 2.5 BOROCAY HWLL ID","brand":"SAMSUNG","warehouse":27},{"sku":"RAS-B22N3KV2-E","qty":10,"wdv":110.77,"writedown_pct":100,"desc":"TOSH RAS-RAS-B22N3K 6.0KW SPLIT HEAD ID","brand":"TOSHIBA","warehouse":27},{"sku":"AC052TXAPKG/SA","qty":9,"wdv":359.99,"writedown_pct":50,"desc":"SSUNG R32 AC052TXAPKG/SA 5.2KW SGL PH OD","brand":"SAMSUNG","warehouse":27},{"sku":"MWR-WE13","qty":9,"wdv":0,"writedown_pct":100,"desc":"SSUNG MWR-WE13 WIRED CTRL 14KW & BELOW","brand":"SAMSUNG","warehouse":27},{"sku":"RB-N106S-G","qty":8,"wdv":33.17,"writedown_pct":65,"desc":"TOSHIBA WIFI SUIT RAS-07 - RAS-16","brand":"TOSHIBA","warehouse":22},{"sku":"HGD5440052N","qty":7,"wdv":262.08,"writedown_pct":65,"desc":"MB3 20I-20KW 3.0 STAR INT NATGAS +CTRL","brand":"BONAIRE","warehouse":26},{"sku":"270982","qty":7,"wdv":903.48,"writedown_pct":65,"desc":"BRAEMAR HEAT TQM5X20 MAGIQ ECO* NG XAIR","brand":"BRAEMAR","warehouse":27},{"sku":"RJ060F3HXEA/XSA","qty":7,"wdv":552.11,"writedown_pct":50,"desc":"MULTI REV CYCLE CONDSR 5.9KW CL/6.3KW HT OD","brand":"SAMSUNG","warehouse":22},{"sku":"RAS-B16N3KV2-E","qty":7,"wdv":67.83,"writedown_pct":100,"desc":"TOSH RAS-B16N3KV2-E 4.5KW SPLIT HEAD ID","brand":"TOSHIBA","warehouse":26},{"sku":"RAV-GM1101ATP-A","qty":7,"wdv":520.74,"writedown_pct":65,"desc":"TOSHIBA R32 DUCTED 10KW OD","brand":"TOSHIBA","warehouse":23},{"sku":"RAV-GM561ATP-A","qty":7,"wdv":280.06,"writedown_pct":65,"desc":"TOSHIBA R32 DUCTED 5KW OD","brand":"TOSHIBA","warehouse":27},{"sku":"RAV-GM561DTP-A","qty":7,"wdv":252.16,"writedown_pct":65,"desc":"TOSHIBA R32 DUCTED 5KW ID","brand":"TOSHIBA","warehouse":27},{"sku":"RAV-SM1603DT-A","qty":7,"wdv":121.18,"writedown_pct":100,"desc":"TOSHIBA SM1603 13.5KW STATIC DUCT ID","brand":"TOSHIBA","warehouse":27},{"sku":"SP615INV4","qty":6,"wdv":906.05,"writedown_pct":100,"desc":"BRIVIS 15.5KW SP6 STARPRO DCTHEAT IN V4","brand":"BRIVIS","warehouse":27},{"sku":"NJ0261HXEA/XSA","qty":6,"wdv":0,"writedown_pct":100,"desc":"SSUNG FJM CASSETTE 1WAY 2.6KW ID","brand":"SAMSUNG","warehouse":22},{"sku":"AR30KSFTAWQXSA","qty":6,"wdv":307.12,"writedown_pct":100,"desc":"SSUNG AR30KSFTAWQXSA 8.0BOROCAY HWALL OD","brand":"SAMSUNG","warehouse":27},{"sku":"RAS-M24N3KV2-E","qty":6,"wdv":0,"writedown_pct":100,"desc":"TOSH RAS-M24N3KV2-E 7.1KW SPLIT HEAD ID","brand":"TOSHIBA","warehouse":27},{"sku":"5640020","qty":5,"wdv":587.94,"writedown_pct":50,"desc":"MB5 21KW 5STAR IN/EX NGAS NON CONDENSING","brand":"BONAIRE","warehouse":26},{"sku":"270944","qty":5,"wdv":535.62,"writedown_pct":100,"desc":"UNIT HEATER TQ5X32 EXTRA AIR NATURAL GAS","brand":"BRAEMAR","warehouse":24},{"sku":"SP415UNGV3","qty":5,"wdv":626.04,"writedown_pct":100,"desc":"BRIVIS 15KW SP4 STARPRO DCTHEAT UN V3 NG","brand":"BRIVIS","warehouse":24},{"sku":"AOTG09KMTC","qty":5,"wdv":219.8,"writedown_pct":50,"desc":"FUJI 2.5KW KMTC INVERT WSPLIT OD","brand":"FUJITSU","warehouse":26},{"sku":"ASTG09KMTC","qty":5,"wdv":175.0,"writedown_pct":50,"desc":"FUJI 2.5KW KMTC INVERT WSPLIT ID","brand":"FUJITSU","warehouse":26},{"sku":"AC100HBHFKH/SA","qty":5,"wdv":66.08,"writedown_pct":100,"desc":"SSUNG AC100HBHFKH/SA 10KW ID","brand":"SAMSUNG","warehouse":27},{"sku":"AR30KSFTAWQNSA","qty":5,"wdv":164.25,"writedown_pct":65,"desc":"SSUNG AR30KSFTAWQNSA 8.0BOROCAY HWALL ID","brand":"SAMSUNG","warehouse":24},{"sku":"NJ068DHXEA/XSA","qty":5,"wdv":0,"writedown_pct":100,"desc":"SSUNG FJM WALLMOUNT 6.8KW ID","brand":"SAMSUNG","warehouse":27}];
+
+const products=[{"sku":"AC052TNHDKG/SA","name":"Samsung Ducted AC052TNHDKG/SA","kw":"5.2","brand":"Samsung","cat":"Ducted","trade":1718,"tags":["Ducted","Samsung"],"desc":"SUPPLY AIR — 5.2kW Single Phase","pair_coil_code":"747113","pair_coil_name":"STAARK Pair Coil 1/4 x 5/8 — 20m","vbox_code":"443152","vbox_desc":"M VBOX INS 823 x 125 BLK","rap_code":"444701","rap_desc":"M RTNA PLEN INS 850 x 220 BLK","id":1},{"sku":"AC071TNHDKG/SA","name":"Samsung Ducted AC071TNHDKG/SA","kw":"7.1","brand":"Samsung","cat":"Ducted","trade":1984,"tags":["Ducted","Samsung"],"desc":"SUPPLY AIR — 7.1kW Single Phase","pair_coil_code":"747113","pair_coil_name":"STAARK Pair Coil 1/4 x 5/8 — 20m","vbox_code":"443153","vbox_desc":"M VBOX INS 1167 x 220 BLK","rap_code":"444702","rap_desc":"M RTNA PLEN INS 1167 x 220 BLK","id":2},{"sku":"AC090TNHDKG/SA","name":"Samsung Ducted AC090TNHDKG/SA","kw":"9.0","brand":"Samsung","cat":"Ducted","trade":2171,"tags":["Ducted","Samsung"],"desc":"SUPPLY AIR — 9.0kW Single Phase","pair_coil_code":"747114","pair_coil_name":"STAARK Pair Coil 3/8 x 5/8 — 20m","vbox_code":"443153","vbox_desc":"M VBOX INS 1167 x 220 BLK","rap_code":"444702","rap_desc":"M RTNA PLEN INS 1167 x 220 BLK","id":3},{"sku":"AC100TNHPKG/SA","name":"Samsung Ducted AC100TNHPKG/SA","kw":"10.0","brand":"Samsung","cat":"Ducted","trade":2445,"tags":["Ducted","Samsung"],"desc":"SUPPLY AIR — 10.0kW Single Phase","pair_coil_code":"747114","pair_coil_name":"STAARK Pair Coil 3/8 x 5/8 — 20m","vbox_code":"443167","vbox_desc":"M VBOX INS 1157 x 248 BLK","id":4},{"sku":"AC120TNHPKG/SA","name":"Samsung Ducted AC120TNHPKG/SA","kw":"12.0","brand":"Samsung","cat":"Ducted","trade":2755,"tags":["Ducted","Samsung"],"desc":"SUPPLY AIR — 12.0kW Single Phase","pair_coil_code":"747114","pair_coil_name":"STAARK Pair Coil 3/8 x 5/8 — 20m","vbox_code":"443167","vbox_desc":"M VBOX INS 1157 x 248 BLK","id":5},{"sku":"AC140TNHPKG/SA","name":"Samsung Ducted AC140TNHPKG/SA","kw":"14.0","brand":"Samsung","cat":"Ducted","trade":3101,"tags":["Ducted","Samsung"],"desc":"SUPPLY AIR — 14.0kW Single Phase","pair_coil_code":"747114","pair_coil_name":"STAARK Pair Coil 3/8 x 5/8 — 20m","vbox_code":"443167","vbox_desc":"M VBOX INS 1157 x 248 BLK","id":6},{"sku":"AC160TNHPKG/SA","name":"Samsung Ducted AC160TNHPKG/SA","kw":"16.0","brand":"Samsung","cat":"Ducted","trade":3480,"tags":["Ducted","Samsung"],"desc":"SUPPLY AIR — 16.0kW Single Phase","pair_coil_code":"747114","pair_coil_name":"STAARK Pair Coil 3/8 x 5/8 — 20m","vbox_code":"443167","vbox_desc":"M VBOX INS 1157 x 248 BLK","id":7},{"sku":"AC180JNHFKH/SA","name":"Samsung Ducted AC180JNHFKH/SA","kw":"18.0","brand":"Samsung","cat":"Ducted","trade":3779,"tags":["Ducted","Samsung"],"desc":"SUPPLY AIR — 18.0kW Three Phase R410A","pair_coil_code":"747115","pair_coil_name":"STAARK Pair Coil 3/8 x 3/4 — 20m","vbox_code":"443583","vbox_desc":"M VBOX INS 1287 x 363 BLK","rap_code":"443590","rap_desc":"M RTNA PLEN INS 1287 x 363 BLK","id":8},{"sku":"RAV-GM561DTP-A","name":"Toshiba Ducted RAV-GM561DTP-A","kw":"5.0","brand":"Toshiba","cat":"Ducted","trade":2701.18,"tags":["Ducted","Toshiba"],"desc":"SUPPLY AIR/RETURN AIR","pair_coil_code":"747112","pair_coil_name":"STAARK Pair Coil 1/4 x 1/2 — 20m","id":9},{"sku":"RAV-GM801DTP-A1","name":"Toshiba Ducted RAV-GM801DTP-A1","kw":"7.1","brand":"Toshiba","cat":"Ducted","trade":3076.47,"tags":["Ducted","Toshiba"],"desc":"SUPPLY AIR/RETURN AIR","pair_coil_code":"747114","pair_coil_name":"STAARK Pair Coil 3/8 x 5/8 — 20m","id":10},{"sku":"RAV-GM1101DTP-A1","name":"Toshiba Ducted RAV-GM1101DTP-A1","kw":"10.0","brand":"Toshiba","cat":"Ducted","trade":3237.65,"tags":["Ducted","Toshiba"],"desc":"SUPPLY AIR/RETURN AIR","pair_coil_code":"747114","pair_coil_name":"STAARK Pair Coil 3/8 x 5/8 — 20m","id":11},{"sku":"RAV-GM1401DTP-A1","name":"Toshiba Ducted RAV-GM1401DTP-A1","kw":"12.5","brand":"Toshiba","cat":"Ducted","trade":3325.88,"tags":["Ducted","Toshiba"],"desc":"SUPPLY AIR/RETURN AIR","pair_coil_code":"747114","pair_coil_name":"STAARK Pair Coil 3/8 x 5/8 — 20m","id":12},{"sku":"RAV-GM1601DTP-A1","name":"Toshiba Ducted RAV-GM1601DTP-A1","kw":"14.0","brand":"Toshiba","cat":"Ducted","trade":3577.65,"tags":["Ducted","Toshiba"],"desc":"SUPPLY AIR/RETURN AIR","pair_coil_code":"747114","pair_coil_name":"STAARK Pair Coil 3/8 x 5/8 — 20m","id":13},{"sku":"RAV-RM2241DTP-E2","name":"Toshiba Ducted RAV-RM2241DTP-E2","kw":"20.0","brand":"Toshiba","cat":"Ducted","trade":6505.88,"tags":["Ducted","Toshiba"],"desc":"SUPPLY AIR/RETURN AIR","vbox_note":"3-phase commercial unit — VBox not listed in VIC catalogue. Consult branch.","id":14},{"sku":"RAV-RM2801DTP-E2","name":"Toshiba Ducted RAV-RM2801DTP-E2","kw":"25.0","brand":"Toshiba","cat":"Ducted","trade":6650.59,"tags":["Ducted","Toshiba"],"desc":"SUPPLY AIR/RETURN AIR","vbox_note":"3-phase commercial unit — VBox not listed in VIC catalogue. Consult branch.","id":15},{"sku":"FDU71VH","name":"MHI Ducted FDU71VH","kw":"7.1","brand":"MHI","cat":"Ducted","trade":1723.53,"tags":["MHI","Ducted"],"desc":"SUPPLY AIR/RETURN AIR","pair_coil_code":"747114","pair_coil_name":"STAARK Pair Coil 3/8 x 5/8 — 20m","id":16},{"sku":"FDUA100VH","name":"MHI Ducted FDUA100VH Low-Static","kw":"10.0","brand":"MHI","cat":"Ducted","trade":2388,"tags":["MHI","Ducted"],"desc":"SUPPLY AIR/RETURN AIR — Low Static","pair_coil_code":"747113","pair_coil_name":"STAARK Pair Coil 1/4 x 5/8 — 20m","id":17},{"sku":"FDU100VH","name":"MHI Ducted FDU100VH High-Static","kw":"10.0","brand":"MHI","cat":"Ducted","trade":2938,"tags":["MHI","Ducted"],"desc":"SUPPLY AIR/RETURN AIR — High Static","pair_coil_code":"747114","pair_coil_name":"STAARK Pair Coil 3/8 x 5/8 — 20m","id":18},{"sku":"FDUA125VH","name":"MHI Ducted FDUA125VH Low-Static","kw":"12.5","brand":"MHI","cat":"Ducted","trade":2737,"tags":["MHI","Ducted"],"desc":"SUPPLY AIR/RETURN AIR — Low Static","pair_coil_code":"747114","pair_coil_name":"STAARK Pair Coil 3/8 x 5/8 — 20m","id":19},{"sku":"FDU125VH","name":"MHI Ducted FDU125VH High-Static","kw":"12.5","brand":"MHI","cat":"Ducted","trade":3482,"tags":["MHI","Ducted"],"desc":"SUPPLY AIR/RETURN AIR — High Static","pair_coil_code":"747114","pair_coil_name":"STAARK Pair Coil 3/8 x 5/8 — 20m","id":20},{"sku":"FDUA140VH","name":"MHI Ducted FDUA140VH","kw":"14.0","brand":"MHI","cat":"Ducted","trade":2547.06,"tags":["MHI","Ducted"],"desc":"SUPPLY AIR/RETURN AIR","pair_coil_code":"747114","pair_coil_name":"STAARK Pair Coil 3/8 x 5/8 — 20m","id":21},{"sku":"FDUA160VH","name":"MHI Ducted FDUA160VH","kw":"16.0","brand":"MHI","cat":"Ducted","trade":3150.59,"tags":["MHI","Ducted"],"desc":"SUPPLY AIR/RETURN AIR","pair_coil_code":"747114","pair_coil_name":"STAARK Pair Coil 3/8 x 5/8 — 20m","id":22},{"sku":"FDUA200VH","name":"MHI Ducted FDUA200VH","kw":"20.0","brand":"MHI","cat":"Ducted","trade":3775.29,"tags":["MHI","Ducted"],"desc":"SUPPLY AIR/RETURN AIR","id":23},{"sku":"FDUA250VH","name":"MHI Ducted FDUA250VH","kw":"25.0","brand":"MHI","cat":"Ducted","trade":4227.06,"tags":["MHI","Ducted"],"desc":"SUPPLY AIR/RETURN AIR","id":24},{"sku":"RC-E5","name":"MHI Wired Remote RC-E5","kw":"—","brand":"MHI","cat":"Ducted","trade":90,"tags":["MHI","Ducted"],"desc":"WIRED REMOTE CONTROL","id":25},{"sku":"RC-EXZ3A","name":"MHI Back-Lit Touch Remote RC-EXZ3A","kw":"—","brand":"MHI","cat":"Ducted","trade":120,"tags":["MHI","Ducted"],"desc":"BACK LIT WIRED TOUCH REMOTE","id":26},{"sku":"PEAD-M71JAADR1.TH","name":"Mitsubishi Electric Ducted PEAD-M71JAADR1.TH","kw":"7.1","brand":"Mitsubishi Electric","cat":"Ducted","trade":2275,"tags":["Ducted","Mitsubishi Electric"],"desc":"SUPPLY AIR/RETURN AIR — incl PAR-41MAAM","vbox_code":"442337","vbox_desc":"M VBOX INS 931 x 260 BLK","rap_code":"442350","rap_desc":"M RTNA PLEN INS 1112 x 340 BLK","id":27},{"sku":"PEA-M100GAA.TH","name":"Mitsubishi Electric Ducted PEA-M100GAA.TH","kw":"10.0","brand":"Mitsubishi Electric","cat":"Ducted","trade":3470,"tags":["Ducted","Mitsubishi Electric"],"desc":"SUPPLY AIR/RETURN AIR — incl PAR-41MAAM","pair_coil_code":"747114","pair_coil_name":"STAARK Pair Coil 3/8 x 5/8 — 20m","id":28},{"sku":"PEA-M125GAA.TH","name":"Mitsubishi Electric Ducted PEA-M125GAA.TH","kw":"12.5","brand":"Mitsubishi Electric","cat":"Ducted","trade":3764,"tags":["Ducted","Mitsubishi Electric"],"desc":"SUPPLY AIR/RETURN AIR — incl PAR-41MAAM","pair_coil_code":"747114","pair_coil_name":"STAARK Pair Coil 3/8 x 5/8 — 20m","id":29},{"sku":"PEA-M140GAA.TH","name":"Mitsubishi Electric Ducted PEA-M140GAA.TH","kw":"14.0","brand":"Mitsubishi Electric","cat":"Ducted","trade":4368,"tags":["Ducted","Mitsubishi Electric"],"desc":"SUPPLY AIR/RETURN AIR — incl PAR-41MAAM","pair_coil_code":"747114","pair_coil_name":"STAARK Pair Coil 3/8 x 5/8 — 20m","id":30},{"sku":"PEA-M160HAA","name":"Mitsubishi Electric Ducted PEA-M160HAA","kw":"16.0","brand":"Mitsubishi Electric","cat":"Ducted","trade":4872,"tags":["Ducted","Mitsubishi Electric"],"desc":"SUPPLY AIR/RETURN AIR — incl PAR-41MAAM","pair_coil_code":"747115","pair_coil_name":"STAARK Pair Coil 3/8 x 3/4 — 20m","id":31},{"sku":"PEA-M180LAA.TH","name":"Mitsubishi Electric Ducted PEA-M180LAA.TH","kw":"18.0","brand":"Mitsubishi Electric","cat":"Ducted","trade":5258,"tags":["Ducted","Mitsubishi Electric"],"desc":"SUPPLY AIR/RETURN AIR — incl PAR-41MAAM","pair_coil_code":"747115","pair_coil_name":"STAARK Pair Coil 3/8 x 3/4 — 20m","id":32},{"sku":"PEA-M180LAA","name":"Mitsubishi Electric Ducted PEA-M180LAA","kw":"18.0","brand":"Mitsubishi Electric","cat":"Ducted","trade":3043.53,"tags":["Ducted","Mitsubishi Electric"],"desc":"SUPPLY AIR/RETURN AIR","pair_coil_code":"747115","pair_coil_name":"STAARK Pair Coil 3/8 x 3/4 — 20m","id":33},{"sku":"PEA-M200LAA","name":"Mitsubishi Electric Ducted PEA-M200LAA","kw":"20.0","brand":"Mitsubishi Electric","cat":"Ducted","trade":3137.65,"tags":["Ducted","Mitsubishi Electric"],"desc":"SUPPLY AIR/RETURN AIR","pair_coil_code":"747116","pair_coil_name":"STAARK 747116","id":34},{"sku":"PEA-M250LAA","name":"Mitsubishi Electric Ducted PEA-M250LAA","kw":"25.0","brand":"Mitsubishi Electric","cat":"Ducted","trade":3574.12,"tags":["Ducted","Mitsubishi Electric"],"desc":"SUPPLY AIR/RETURN AIR","pair_coil_code":"747116","pair_coil_name":"STAARK 747116","id":35},{"sku":"FDU71AVNXWVWH","name":"MHI Slimline Ducted 7.1kW","kw":"7.1","brand":"MHI","cat":"Ducted","trade":2447,"tags":["Ducted","R32","MHI"],"desc":"MHI 7.1kW Slimline Ducted R32. Single phase.","id":554},{"sku":"FDUA125AVNPWVH","name":"MHI High Static Ducted 12.5kW Low-Static","kw":"12.5","brand":"MHI","cat":"Ducted","trade":2737,"tags":["Ducted","R32","MHI"],"desc":"MHI 12.5kW High Static Ducted R32. Single phase.","id":555},{"sku":"FDUA140AVNXWWH","name":"MHI High Static Ducted 14.0kW","kw":"14.0","brand":"MHI","cat":"Ducted","trade":3978,"tags":["Ducted","R32","MHI"],"desc":"MHI 14.0kW High Static Ducted R32. Single phase.","id":556},{"sku":"FDUA160AVNXWWH","name":"MHI High Static Ducted 16.0kW","kw":"16.0","brand":"MHI","cat":"Ducted","trade":4569,"tags":["Ducted","R32","MHI"],"desc":"MHI 16.0kW High Static Ducted R32. Single phase.","id":557},{"sku":"DUCMI70IC","name":"Midea Vesta Ducted 7.0kW","kw":"7.0","brand":"Midea","cat":"Ducted","trade":1340,"tags":["Ducted","R32","Midea"],"desc":"Midea VESTA 7.0kW Ducted R32. Includes controller. Single phase.","vbox_code":"442391","vbox_desc":"M VBOX INS 931 x 180 BLK","rap_code":"442388","rap_desc":"M RTNA PLEN INS 1006 x 233 BLK","id":548},{"sku":"DUCMI90IC","name":"Midea Vesta Ducted 9.0kW","kw":"9.0","brand":"Midea","cat":"Ducted","trade":1743,"tags":["Ducted","R32","Midea"],"desc":"Midea VESTA 9.0kW Ducted R32. Includes controller. Single phase.","vbox_code":"442392","vbox_desc":"M VBOX INS 1171 x 180 BLK","rap_code":"442389","rap_desc":"M RTNA PLEN INS 1266 x 233 BLK","id":549},{"sku":"DUCMI105IHC","name":"Midea Vesta Ducted 10.5kW","kw":"10.5","brand":"Midea","cat":"Ducted","trade":1923,"tags":["Ducted","R32","Midea"],"desc":"Midea VESTA 10.5kW Ducted R32. Includes controller. Single phase.","vbox_code":"443161","vbox_desc":"M VBOX INS 1005 x 258 BLK","rap_code":"442390","rap_desc":"M RTNA PLEN INS 1150 x 339 BLK","id":550},{"sku":"DUCMI125IHC","name":"Midea Vesta Ducted 12.5kW","kw":"12.5","brand":"Midea","cat":"Ducted","trade":2324,"tags":["Ducted","R32","Midea"],"desc":"Midea VESTA 12.5kW Ducted R32. Includes controller. Single phase.","vbox_code":"443161","vbox_desc":"M VBOX INS 1005 x 258 BLK","rap_code":"442390","rap_desc":"M RTNA PLEN INS 1150 x 339 BLK","id":551},{"sku":"DUCMI140IHC","name":"Midea Vesta Ducted 14.0kW","kw":"14.0","brand":"Midea","cat":"Ducted","trade":2557,"tags":["Ducted","R32","Midea"],"desc":"Midea VESTA 14.0kW Ducted R32. Includes controller. Single phase.","vbox_code":"443161","vbox_desc":"M VBOX INS 1005 x 258 BLK","rap_code":"442390","rap_desc":"M RTNA PLEN INS 1150 x 339 BLK","id":552},{"sku":"DUCMI170IHC","name":"Midea Vesta Ducted 17.0kW","kw":"17.0","brand":"Midea","cat":"Ducted","trade":3063,"tags":["Ducted","R32","Midea"],"desc":"Midea VESTA 17.0kW Ducted R32. Includes controller. Single phase.","vbox_code":"443162","vbox_desc":"M VBOX INS 1193 x 390 BLK","rap_code":"444705","rap_desc":"M RTNA PLEN INS 1193 x 390 BLK","id":553},{"sku":"MDV-V230WN1(AU)","name":"Midea VRF Ducted 19.5kW Outdoor","kw":"19.5","brand":"Midea","cat":"Ducted","trade":1928,"tags":["Ducted","VRF","Midea"],"desc":"VRF Ducted with External Water Pump Box 19.5kW C / 23kW H","id":503},{"sku":"MDV-V250WN1D(AU)-A","name":"Midea VRF Ducted 22.4kW Outdoor","kw":"22.4","brand":"Midea","cat":"Ducted","trade":2422,"tags":["Ducted","VRF","Midea"],"desc":"VRF Ducted Outdoor 22.4kW C","id":505},{"sku":"AR09DXFZCWKNSA","name":"Samsung 2.5kW Wall Split Indoor","kw":"2.5","brand":"Samsung","cat":"Wall Split","trade":257.22,"tags":["Samsung","Wall Split"],"desc":"2.5kW, Hi Wall, AERO, AI, Wi-Fi, R32, Indoor","id":36},{"sku":"AR09DXFZCWKXSA","name":"Samsung 2.5kW Wall Split Outdoor","kw":"2.5","brand":"Samsung","cat":"Wall Split","trade":477.69,"tags":["Samsung","Wall Split"],"desc":"2.5kW AERO Outdoor 1/4-3/8","id":37},{"sku":"AR12DXFZCWKNSA","name":"Samsung 3.5kW Wall Split Indoor","kw":"3.5","brand":"Samsung","cat":"Wall Split","trade":283.18,"tags":["Samsung","Wall Split"],"desc":"3.5kW, Hi Wall, AERO, AI, Wi-Fi, R32, Indoor","id":38},{"sku":"AR12DXFZCWKXSA","name":"Samsung 3.5kW Wall Split Outdoor","kw":"3.5","brand":"Samsung","cat":"Wall Split","trade":525.88,"tags":["Samsung","Wall Split"],"desc":"3.5kW AERO Outdoor 1/4-3/8","id":39},{"sku":"AR18DXFZCWKNSA","name":"Samsung 5.0kW Wall Split Indoor","kw":"5.0","brand":"Samsung","cat":"Wall Split","trade":357.66,"tags":["Samsung","Wall Split"],"desc":"5.0kW, Hi Wall, AERO, AI, Wi-Fi, R32, Indoor","id":40},{"sku":"AR18DXFZCWKXSA","name":"Samsung 5.0kW Wall Split Outdoor","kw":"5.0","brand":"Samsung","cat":"Wall Split","trade":664.24,"tags":["Samsung","Wall Split"],"desc":"5.0kW AERO Outdoor 1/4-1/2","id":41},{"sku":"AR24DXFZCWKNSA","name":"Samsung 6.8kW Wall Split Indoor","kw":"6.8","brand":"Samsung","cat":"Wall Split","trade":471.27,"tags":["Samsung","Wall Split"],"desc":"6.8kW, Hi Wall, AERO, AI, Wi-Fi, R32, Indoor","id":42},{"sku":"AR24DXFZCWKXSA","name":"Samsung 6.8kW Wall Split Outdoor","kw":"6.8","brand":"Samsung","cat":"Wall Split","trade":875.21,"tags":["Samsung","Wall Split"],"desc":"6.8kW AERO Outdoor 1/4-5/8","id":43},{"sku":"AR30DXFZCWKNSA","name":"Samsung 8.0kW Wall Split Indoor","kw":"8.0","brand":"Samsung","cat":"Wall Split","trade":606.0,"tags":["Samsung","Wall Split"],"desc":"8.0kW, Hi Wall, AERO, AI, Wi-Fi, R32, Indoor","id":44},{"sku":"AR30DXFZCWKXSA","name":"Samsung 8.0kW Wall Split Outdoor","kw":"8.0","brand":"Samsung","cat":"Wall Split","trade":1125.41,"tags":["Samsung","Wall Split"],"desc":"8.0kW AERO Outdoor 1/4-5/8","id":45},{"sku":"MFAG20VA-N","name":"Midea Venus 2.0kW Indoor","kw":"2.0","brand":"Midea","cat":"Wall Split","trade":124,"tags":["Midea","Wall Split"],"desc":"MIDEA 2.0KW VENUS HI-WALL R32 ID","id":46},{"sku":"MFAG20VA-W","name":"Midea Venus 2.0kW Outdoor","kw":"2.0","brand":"Midea","cat":"Wall Split","trade":306.8,"tags":["Midea","Wall Split"],"desc":"1/4-3/8","id":47},{"sku":"MFAG26VA-N","name":"Midea Venus 2.6kW Indoor","kw":"2.6","brand":"Midea","cat":"Wall Split","trade":171,"tags":["Midea","Wall Split"],"desc":"MIDEA 2.6KW VENUS HI-WALL R32 ID","id":48},{"sku":"MFAG26VA-W","name":"Midea Venus 2.6kW Outdoor","kw":"2.6","brand":"Midea","cat":"Wall Split","trade":336.31,"tags":["Midea","Wall Split"],"desc":"1/4-3/8","id":49},{"sku":"MFAG36VA-N","name":"Midea Venus 3.6kW Indoor","kw":"3.6","brand":"Midea","cat":"Wall Split","trade":200,"tags":["Midea","Wall Split"],"desc":"MIDEA 3.6KW VENUS HI-WALL R32 ID","id":50},{"sku":"MFAG36VA-W","name":"Midea Venus 3.6kW Outdoor","kw":"3.6","brand":"Midea","cat":"Wall Split","trade":393.87,"tags":["Midea","Wall Split"],"desc":"1/4-3/8","id":51},{"sku":"MFAG51VA-N","name":"Midea Venus 5.1kW Indoor","kw":"5.1","brand":"Midea","cat":"Wall Split","trade":286,"tags":["Midea","Wall Split"],"desc":"MIDEA 5.1KW VENUS HI-WALL R32 ID","id":52},{"sku":"MFAG51VA-W","name":"Midea Venus 5.1kW Outdoor","kw":"5.1","brand":"Midea","cat":"Wall Split","trade":562.44,"tags":["Midea","Wall Split"],"desc":"1/4-1/2","id":53},{"sku":"MFAG60VA-N","name":"Midea Venus 6.0kW Indoor","kw":"6.0","brand":"Midea","cat":"Wall Split","trade":298,"tags":["Midea","Wall Split"],"desc":"MIDEA 6.0KW VENUS HI-WALL R32 ID","id":54},{"sku":"MFAG60VA-W","name":"Midea Venus 6.0kW Outdoor","kw":"6.0","brand":"Midea","cat":"Wall Split","trade":586.84,"tags":["Midea","Wall Split"],"desc":"1/4-1/2","id":55},{"sku":"MFAG70VA-N","name":"Midea Venus 7.0kW Indoor","kw":"7.0","brand":"Midea","cat":"Wall Split","trade":340,"tags":["Midea","Wall Split"],"desc":"MIDEA 7.0KW VENUS HI-WALL R32 ID","id":56},{"sku":"MFAG70VA-W","name":"Midea Venus 7.0kW Outdoor","kw":"7.0","brand":"Midea","cat":"Wall Split","trade":669.33,"tags":["Midea","Wall Split"],"desc":"1/4-5/8","id":57},{"sku":"MFAG80VA-N","name":"Midea Venus 8.0kW Indoor","kw":"8.0","brand":"Midea","cat":"Wall Split","trade":400,"tags":["Midea","Wall Split"],"desc":"MIDEA 8.0KW VENUS HI-WALL R32 ID","id":58},{"sku":"MFAG80VA-W","name":"Midea Venus 8.0kW Outdoor","kw":"8.0","brand":"Midea","cat":"Wall Split","trade":786.48,"tags":["Midea","Wall Split"],"desc":"1/4-5/8","id":59},{"sku":"MFEZ20VA-N","name":"Midea Athena 2.0kW Indoor","kw":"2.0","brand":"Midea","cat":"Wall Split","trade":143.71,"tags":["Midea","Wall Split"],"desc":"MIDEA 2.0KW ATHENA HI-WALL R32 ID","id":60},{"sku":"MFEZ20VA-W","name":"Midea Athena 2.0kW Outdoor","kw":"2.0","brand":"Midea","cat":"Wall Split","trade":335.29,"tags":["Midea","Wall Split"],"desc":"1/4-3/8","id":61},{"sku":"MFEZ26VA-N","name":"Midea Athena 2.6kW Indoor","kw":"2.6","brand":"Midea","cat":"Wall Split","trade":164.71,"tags":["Midea","Wall Split"],"desc":"MIDEA 2.6KW ATHENA HI-WALL R32 ID","id":62},{"sku":"MFEZ26VA-W","name":"Midea Athena 2.6kW Outdoor","kw":"2.6","brand":"Midea","cat":"Wall Split","trade":384.29,"tags":["Midea","Wall Split"],"desc":"1/4-3/8","id":63},{"sku":"MFEZ35VA-N","name":"Midea Athena 3.5kW Indoor","kw":"3.5","brand":"Midea","cat":"Wall Split","trade":194.71,"tags":["Midea","Wall Split"],"desc":"MIDEA 3.5KW ATHENA HI-WALL R32 ID","id":64},{"sku":"MFEZ35VA-W","name":"Midea Athena 3.5kW Outdoor","kw":"3.5","brand":"Midea","cat":"Wall Split","trade":454.29,"tags":["Midea","Wall Split"],"desc":"1/4-3/8","id":65},{"sku":"MFEZ50VA-N","name":"Midea Athena 5.0kW Indoor","kw":"5.0","brand":"Midea","cat":"Wall Split","trade":278.71,"tags":["Midea","Wall Split"],"desc":"MIDEA 5.0KW ATHENA HI-WALL R32 ID","id":66},{"sku":"MFEZ50VA-W","name":"Midea Athena 5.0kW Outdoor","kw":"5.0","brand":"Midea","cat":"Wall Split","trade":650.29,"tags":["Midea","Wall Split"],"desc":"1/4-1/2","id":67},{"sku":"MFEZ60VA-N","name":"Midea Athena 6.0kW Indoor","kw":"6.0","brand":"Midea","cat":"Wall Split","trade":299.71,"tags":["Midea","Wall Split"],"desc":"MIDEA 6.0KW ATHENA HI-WALL R32 ID","id":68},{"sku":"MFEZ60VA-W","name":"Midea Athena 6.0kW Outdoor","kw":"6.0","brand":"Midea","cat":"Wall Split","trade":699.29,"tags":["Midea","Wall Split"],"desc":"1/4-5/8","id":69},{"sku":"MFEZ70VA-N","name":"Midea Athena 7.0kW Indoor","kw":"7.0","brand":"Midea","cat":"Wall Split","trade":329.71,"tags":["Midea","Wall Split"],"desc":"MIDEA 7.0KW ATHENA HI-WALL R32 ID","id":70},{"sku":"MFEZ70VA-W","name":"Midea Athena 7.0kW Outdoor","kw":"7.0","brand":"Midea","cat":"Wall Split","trade":769.29,"tags":["Midea","Wall Split"],"desc":"1/4-5/8","id":71},{"sku":"MFEZ80VA-N","name":"Midea Athena 8.0kW Indoor","kw":"8.0","brand":"Midea","cat":"Wall Split","trade":389.65,"tags":["Midea","Wall Split"],"desc":"MIDEA 8.0KW ATHENA HI-WALL R32 ID","id":72},{"sku":"MFEZ80VA-W","name":"Midea Athena 8.0kW Outdoor","kw":"8.0","brand":"Midea","cat":"Wall Split","trade":909.35,"tags":["Midea","Wall Split"],"desc":"1/4-5/8","id":73},{"sku":"RAS-07B2KVG-A","name":"Toshiba 2.0kW Wall Split Indoor","kw":"2.0","brand":"Toshiba","cat":"Wall Split","trade":270.21,"tags":["Toshiba","Wall Split"],"desc":"Indoor 2.0kW C 2.5kW H","id":74},{"sku":"RAS-07B2AVG-A","name":"Toshiba 2.0kW Wall Split Outdoor","kw":"2.0","brand":"Toshiba","cat":"Wall Split","trade":489.6,"tags":["Toshiba","Wall Split"],"desc":"1/4-3/8","id":75},{"sku":"RAS-10B2KVG-A","name":"Toshiba 2.5kW Wall Split Indoor","kw":"2.5","brand":"Toshiba","cat":"Wall Split","trade":276.56,"tags":["Toshiba","Wall Split"],"desc":"Indoor 2.5kW C 3.2kW H","id":76},{"sku":"RAS-10B2AVG-A","name":"Toshiba 2.5kW Wall Split Outdoor","kw":"2.5","brand":"Toshiba","cat":"Wall Split","trade":546.78,"tags":["Toshiba","Wall Split"],"desc":"1/4-3/8","id":77},{"sku":"RAS-13B2KVG-A","name":"Toshiba 3.5kW Wall Split Indoor","kw":"3.5","brand":"Toshiba","cat":"Wall Split","trade":290.96,"tags":["Toshiba","Wall Split"],"desc":"Indoor 3.5kW C 4.0kW H","id":78},{"sku":"RAS-13B2AVG-A","name":"Toshiba 3.5kW Wall Split Outdoor","kw":"3.5","brand":"Toshiba","cat":"Wall Split","trade":616.66,"tags":["Toshiba","Wall Split"],"desc":"1/4-3/8","id":79},{"sku":"RAS-16B2KVG-A","name":"Toshiba 4.2kW Wall Split Indoor","kw":"4.2","brand":"Toshiba","cat":"Wall Split","trade":307.91,"tags":["Toshiba","Wall Split"],"desc":"Indoor 4.2kW C 5.4kW H","id":80},{"sku":"RAS-16B2AVG-A","name":"Toshiba 4.2kW Wall Split Outdoor","kw":"4.2","brand":"Toshiba","cat":"Wall Split","trade":682.31,"tags":["Toshiba","Wall Split"],"desc":"1/4-1/2","id":81},{"sku":"RAS-18B2KVG-A","name":"Toshiba 5.0kW Wall Split Indoor","kw":"5.0","brand":"Toshiba","cat":"Wall Split","trade":332.47,"tags":["Toshiba","Wall Split"],"desc":"Indoor 5.0kW C 5.6kW H","id":82},{"sku":"RAS-18B2AVG-A","name":"Toshiba 5.0kW Wall Split Outdoor","kw":"5.0","brand":"Toshiba","cat":"Wall Split","trade":771.67,"tags":["Toshiba","Wall Split"],"desc":"1/4-1/2","id":83},{"sku":"RAS-22B2KVG-A","name":"Toshiba 6.0kW Wall Split Indoor","kw":"6.0","brand":"Toshiba","cat":"Wall Split","trade":403.62,"tags":["Toshiba","Wall Split"],"desc":"Indoor 6.0kW C 6.9kW H","id":84},{"sku":"RAS-22B2AVG-A","name":"Toshiba 6.0kW Wall Split Outdoor","kw":"6.0","brand":"Toshiba","cat":"Wall Split","trade":806.4,"tags":["Toshiba","Wall Split"],"desc":"1/4-1/2","id":85},{"sku":"RAS-24B2KVG-A","name":"Toshiba 7.1kW Wall Split Indoor","kw":"7.1","brand":"Toshiba","cat":"Wall Split","trade":424.8,"tags":["Toshiba","Wall Split"],"desc":"Indoor 7.1kW C 8.0kW H","id":86},{"sku":"RAS-24B2AVG-A","name":"Toshiba 7.1kW Wall Split Outdoor","kw":"7.1","brand":"Toshiba","cat":"Wall Split","trade":1163.86,"tags":["Toshiba","Wall Split"],"desc":"1/4-1/2","id":87},{"sku":"RAS-30B2KVG-A","name":"Toshiba 8.0kW Wall Split Indoor","kw":"8.0","brand":"Toshiba","cat":"Wall Split","trade":502.31,"tags":["Toshiba","Wall Split"],"desc":"Indoor 8.0kW C 9.0kW H","id":88},{"sku":"RAS-30B2AVG-A","name":"Toshiba 8.0kW Wall Split Outdoor","kw":"8.0","brand":"Toshiba","cat":"Wall Split","trade":1645.84,"tags":["Toshiba","Wall Split"],"desc":"3/8-5/8","id":89},{"sku":"RAS-34B2KVG-A","name":"Toshiba 9.0kW Wall Split Indoor","kw":"9.0","brand":"Toshiba","cat":"Wall Split","trade":634.87,"tags":["Toshiba","Wall Split"],"desc":"Indoor 9.0kW C 10.3kW H","id":90},{"sku":"RAS-34B2AVG-A","name":"Toshiba 9.0kW Wall Split Outdoor","kw":"9.0","brand":"Toshiba","cat":"Wall Split","trade":1704.28,"tags":["Toshiba","Wall Split"],"desc":"3/8-5/8","id":91},{"sku":"RAS-36B2KVG-A","name":"Toshiba 10.0kW Wall Split Indoor","kw":"10.0","brand":"Toshiba","cat":"Wall Split","trade":663.67,"tags":["Toshiba","Wall Split"],"desc":"Indoor 10.0kW C 11.5kW H","id":92},{"sku":"RAS-36B2AVG-A","name":"Toshiba 10.0kW Wall Split Outdoor","kw":"10.0","brand":"Toshiba","cat":"Wall Split","trade":1968.14,"tags":["Toshiba","Wall Split"],"desc":"3/8-5/8","id":93},{"sku":"SRK20ZSA-W","name":"MHI 2.0kW Wall Split Indoor","kw":"2.0","brand":"MHI","cat":"Wall Split","trade":274.99,"tags":["MHI","Wall Split"],"desc":"AVANTI INDOOR 2.0kW C 2.7kW H","id":94},{"sku":"SRC20ZSA-W","name":"MHI 2.0kW Wall Split Outdoor","kw":"2.0","brand":"MHI","cat":"Wall Split","trade":454.45,"tags":["MHI","Wall Split"],"desc":"AVANTI OUTDOOR 2.0kW C 2.7kW H","id":95},{"sku":"SRK25ZSA-W","name":"MHI 2.5kW Wall Split Indoor","kw":"2.5","brand":"MHI","cat":"Wall Split","trade":318.66,"tags":["MHI","Wall Split"],"desc":"AVANTI INDOOR 2.5kW C 3.2kW H","id":96},{"sku":"SRC25ZSA-W","name":"MHI 2.5kW Wall Split Outdoor","kw":"2.5","brand":"MHI","cat":"Wall Split","trade":505.62,"tags":["MHI","Wall Split"],"desc":"AVANTI OUTDOOR 2.5kW C 3.2kW H","id":97},{"sku":"SRK35ZSA-W","name":"MHI 3.5kW Wall Split Indoor","kw":"3.5","brand":"MHI","cat":"Wall Split","trade":366.42,"tags":["MHI","Wall Split"],"desc":"AVANTI INDOOR 3.5kW C 3.7kW H","id":98},{"sku":"SRC35ZSA-W","name":"MHI 3.5kW Wall Split Outdoor","kw":"3.5","brand":"MHI","cat":"Wall Split","trade":608.66,"tags":["MHI","Wall Split"],"desc":"AVANTI OUTDOOR 3.5kW C 3.7kW H","id":99},{"sku":"SRK50ZSA-W","name":"MHI 5.0kW Wall Split Indoor","kw":"5.0","brand":"MHI","cat":"Wall Split","trade":410.78,"tags":["MHI","Wall Split"],"desc":"AVANTI INDOOR 5.0kW C 5.8kW H","id":100},{"sku":"SRC50ZSA-W","name":"MHI 5.0kW Wall Split Outdoor","kw":"5.0","brand":"MHI","cat":"Wall Split","trade":886.38,"tags":["MHI","Wall Split"],"desc":"AVANTI OUTDOOR 5.0kW C 5.8kW H","id":101},{"sku":"SRK63ZRA-W","name":"MHI 6.3kW Wall Split Indoor","kw":"6.3","brand":"MHI","cat":"Wall Split","trade":630.49,"tags":["MHI","Wall Split"],"desc":"BRONTE INDOOR 6.3kW C 7.1kW H","id":102},{"sku":"SRC63ZRA-W","name":"MHI 6.3kW Wall Split Outdoor","kw":"6.3","brand":"MHI","cat":"Wall Split","trade":970.99,"tags":["MHI","Wall Split"],"desc":"BRONTE OUTDOOR 6.3kW C 7.1kW H","id":103},{"sku":"SRK71ZRA-W","name":"MHI 7.1kW Wall Split Indoor","kw":"7.1","brand":"MHI","cat":"Wall Split","trade":644.82,"tags":["MHI","Wall Split"],"desc":"BRONTE INDOOR 7.1kW C 8.0kW H","id":104},{"sku":"SRC71ZRA-W","name":"MHI 7.1kW Wall Split Outdoor","kw":"7.1","brand":"MHI","cat":"Wall Split","trade":1051.51,"tags":["MHI","Wall Split"],"desc":"BRONTE OUTDOOR 7.1kW C 8.0kW H","id":105},{"sku":"SRK80ZRA-W","name":"MHI 8.0kW Wall Split Indoor","kw":"8.0","brand":"MHI","cat":"Wall Split","trade":711.01,"tags":["MHI","Wall Split"],"desc":"BRONTE INDOOR 8.0kW C 9.0kW H","id":106},{"sku":"SRC80ZRA-W","name":"MHI 8.0kW Wall Split Outdoor","kw":"8.0","brand":"MHI","cat":"Wall Split","trade":1428.85,"tags":["MHI","Wall Split"],"desc":"BRONTE OUTDOOR 8.0kW C 9.0kW H","id":107},{"sku":"SRK95ZRA-W","name":"MHI 9.5kW Wall Split Indoor","kw":"9.5","brand":"MHI","cat":"Wall Split","trade":1110.19,"tags":["MHI","Wall Split"],"desc":"BRONTE INDOOR 9.5kW C 10.3kW H","id":108},{"sku":"SRC95ZRA-W","name":"MHI 9.5kW Wall Split Outdoor","kw":"9.5","brand":"MHI","cat":"Wall Split","trade":1582.38,"tags":["MHI","Wall Split"],"desc":"BRONTE OUTDOOR 9.5kW C 10.3kW H","id":109},{"sku":"MSZ-AP20VGD-A1","name":"Mitsubishi Electric 2.0kW Wall Split Indoor","kw":"2.0","brand":"Mitsubishi Electric","cat":"Wall Split","trade":305.53,"tags":["Mitsubishi Electric","Wall Split"],"desc":"2.0kW R32 Indoor (NON REBATE)","id":110},{"sku":"MUZ-AP20VG-A1","name":"Mitsubishi Electric 2.0kW Wall Split Outdoor","kw":"2.0","brand":"Mitsubishi Electric","cat":"Wall Split","trade":602.0,"tags":["Mitsubishi Electric","Wall Split"],"desc":"1/4-3/8","id":111},{"sku":"MSZ-AP25VGKD2-A2","name":"Mitsubishi Electric 2.5kW Wall Split Indoor","kw":"2.5","brand":"Mitsubishi Electric","cat":"Wall Split","trade":328.59,"tags":["Mitsubishi Electric","Wall Split"],"desc":"2.5kW R32 Indoor","id":112},{"sku":"MUZ-AP25VGD2-A2","name":"Mitsubishi Electric 2.5kW Wall Split Outdoor","kw":"2.5","brand":"Mitsubishi Electric","cat":"Wall Split","trade":629.18,"tags":["Mitsubishi Electric","Wall Split"],"desc":"1/4-3/8","id":113},{"sku":"MSZ-AP35VGKD2-A2","name":"Mitsubishi Electric 3.5kW Wall Split Indoor","kw":"3.5","brand":"Mitsubishi Electric","cat":"Wall Split","trade":326.12,"tags":["Mitsubishi Electric","Wall Split"],"desc":"3.5kW R32 Indoor","id":114},{"sku":"MUZ-AP35VGD2-A2","name":"Mitsubishi Electric 3.5kW Wall Split Outdoor","kw":"3.5","brand":"Mitsubishi Electric","cat":"Wall Split","trade":808.71,"tags":["Mitsubishi Electric","Wall Split"],"desc":"1/4-3/8","id":115},{"sku":"MSZ-AP42VGKD2-A2","name":"Mitsubishi Electric 4.2kW Wall Split Indoor","kw":"4.2","brand":"Mitsubishi Electric","cat":"Wall Split","trade":361.53,"tags":["Mitsubishi Electric","Wall Split"],"desc":"4.2kW R32 Indoor","id":116},{"sku":"MUZ-AP42VGD2-A2","name":"Mitsubishi Electric 4.2kW Wall Split Outdoor","kw":"4.2","brand":"Mitsubishi Electric","cat":"Wall Split","trade":999.76,"tags":["Mitsubishi Electric","Wall Split"],"desc":"1/4-3/8","id":117},{"sku":"MSZ-AP50VGKD2-A2","name":"Mitsubishi Electric 5.0kW Wall Split Indoor","kw":"5.0","brand":"Mitsubishi Electric","cat":"Wall Split","trade":393.65,"tags":["Mitsubishi Electric","Wall Split"],"desc":"5.0kW R32 Indoor","id":118},{"sku":"MUZ-AP50VGD2-A2","name":"Mitsubishi Electric 5.0kW Wall Split Outdoor","kw":"5.0","brand":"Mitsubishi Electric","cat":"Wall Split","trade":1162.0,"tags":["Mitsubishi Electric","Wall Split"],"desc":"1/4-1/2","id":119},{"sku":"MSZ-AP60VGKD2-A2","name":"Mitsubishi Electric 6.0kW Wall Split Indoor","kw":"6.0","brand":"Mitsubishi Electric","cat":"Wall Split","trade":455.41,"tags":["Mitsubishi Electric","Wall Split"],"desc":"6.0kW R32 Indoor","id":120},{"sku":"MUZ-AP60VGD2-A2","name":"Mitsubishi Electric 6.0kW Wall Split Outdoor","kw":"6.0","brand":"Mitsubishi Electric","cat":"Wall Split","trade":1358.82,"tags":["Mitsubishi Electric","Wall Split"],"desc":"1/4-1/2","id":121},{"sku":"MSZ-AP71VGKD2-A2","name":"Mitsubishi Electric 7.1kW Wall Split Indoor","kw":"7.1","brand":"Mitsubishi Electric","cat":"Wall Split","trade":470.24,"tags":["Mitsubishi Electric","Wall Split"],"desc":"7.1kW R32 Indoor","id":122},{"sku":"MUZ-AP71VGD2-A2","name":"Mitsubishi Electric 7.1kW Wall Split Outdoor","kw":"7.1","brand":"Mitsubishi Electric","cat":"Wall Split","trade":1459.29,"tags":["Mitsubishi Electric","Wall Split"],"desc":"1/4-1/2","id":123},{"sku":"MSZ-AP80VGKD2-A2","name":"Mitsubishi Electric 7.8kW Wall Split Indoor","kw":"7.8","brand":"Mitsubishi Electric","cat":"Wall Split","trade":605.29,"tags":["Mitsubishi Electric","Wall Split"],"desc":"7.8kW R32 Indoor","id":124},{"sku":"MUZ-AP80VGD2-A2","name":"Mitsubishi Electric 7.8kW Wall Split Outdoor","kw":"7.8","brand":"Mitsubishi Electric","cat":"Wall Split","trade":1755.76,"tags":["Mitsubishi Electric","Wall Split"],"desc":"1/4-1/2","id":125},{"sku":"MSZ-AS90VGD-A2","name":"Mitsubishi Electric 9.0kW Wall Split Indoor","kw":"9.0","brand":"Mitsubishi Electric","cat":"Wall Split","trade":682.71,"tags":["Mitsubishi Electric","Wall Split"],"desc":"9.0kW R32 Indoor (NON REBATE)","id":126},{"sku":"MUZ-AS90VGD-A2","name":"Mitsubishi Electric 9.0kW Wall Split Outdoor","kw":"9.0","brand":"Mitsubishi Electric","cat":"Wall Split","trade":1976.47,"tags":["Mitsubishi Electric","Wall Split"],"desc":"1/4-1/2","id":127},{"sku":"078038","name":"Braemar KIT THERMOSTAT MANUAL","kw":"—","brand":"Braemar","cat":"Gas Heater","trade":93.24,"tags":["Braemar","Gas Heater"],"desc":"KIT THERMOSTAT MANUAL","id":128},{"sku":"075297","name":"Braemar KIT ACC INT TQ3/TQ4/TQM5","kw":"—","brand":"Braemar","cat":"Gas Heater","trade":65.87,"tags":["Braemar","Gas Heater"],"desc":"KIT ACC INT TQ3/TQ4/TQM5","id":129},{"sku":"075365","name":"Braemar KIT ACC EXT TQ3/TQ4","kw":"—","brand":"Braemar","cat":"Gas Heater","trade":65.87,"tags":["Braemar","Gas Heater"],"desc":"KIT ACC EXT TQ3/TQ4","id":130},{"sku":"094298","name":"Braemar MagiQtouch","kw":"—","brand":"Braemar","cat":"Gas Heater","trade":139.54,"tags":["Braemar","Gas Heater"],"desc":"MagiQtouch","id":131},{"sku":"075358","name":"Braemar KIT ACC INT TQM6","kw":"—","brand":"Braemar","cat":"Gas Heater","trade":65.87,"tags":["Braemar","Gas Heater"],"desc":"KIT ACC INT TQM6","id":132},{"sku":"075396","name":"Braemar KIT ACC EXT TQM6","kw":"—","brand":"Braemar","cat":"Gas Heater","trade":65.87,"tags":["Braemar","Gas Heater"],"desc":"KIT ACC EXT TQM6","id":133},{"sku":"SP615INV4","name":"Brivis STARPRO SP615IN V4","kw":"—","brand":"Brivis","cat":"Gas Heater","trade":2693.89,"tags":["Brivis","Gas Heater"],"desc":"STARPRO SP615IN V4","id":151},{"sku":"SP623INV4","name":"Brivis STARPRO SP623IN V4","kw":"—","brand":"Brivis","cat":"Gas Heater","trade":3008.04,"tags":["Brivis","Gas Heater"],"desc":"STARPRO SP623IN V4","id":152},{"sku":"SP630INV4","name":"Brivis STARPRO SP630IN V4","kw":"—","brand":"Brivis","cat":"Gas Heater","trade":3562.69,"tags":["Brivis","Gas Heater"],"desc":"STARPRO SP630IN V4","id":154},{"sku":"SP635INV4","name":"Brivis STARPRO SP635IN V4","kw":"—","brand":"Brivis","cat":"Gas Heater","trade":3794.59,"tags":["Brivis","Gas Heater"],"desc":"STARPRO SP635IN V4","id":156},{"sku":"SP521INV4","name":"Brivis STARPRO SP521IN V4","kw":"—","brand":"Brivis","cat":"Gas Heater","trade":2681.11,"tags":["Brivis","Gas Heater"],"desc":"STARPRO SP521IN V4","id":161},{"sku":"SP530INV4","name":"Brivis STARPRO SP530IN V4","kw":"—","brand":"Brivis","cat":"Gas Heater","trade":2936.56,"tags":["Brivis","Gas Heater"],"desc":"STARPRO SP530IN V4","id":163},{"sku":"SP521ENV4","name":"Brivis STARPRO SP521EN V4","kw":"—","brand":"Brivis","cat":"Gas Heater","trade":2719.22,"tags":["Brivis","Gas Heater"],"desc":"STARPRO SP521EN V4","id":166},{"sku":"SP530ENV4","name":"Brivis STARPRO SP530EN V4","kw":"—","brand":"Brivis","cat":"Gas Heater","trade":2993.73,"tags":["Brivis","Gas Heater"],"desc":"STARPRO SP530EN V4","id":168},{"sku":"HGD5440020","name":"Bonaire MB4 20U 20kW","kw":"20","brand":"Bonaire","cat":"Gas Heater","trade":1654.12,"tags":["Bonaire","Gas Heater"],"desc":"MB4 20U -20kW 4 Star Internal External","id":252},{"sku":"HGD5450020","name":"Bonaire MB4 25U 25kW","kw":"25","brand":"Bonaire","cat":"Gas Heater","trade":1824.71,"tags":["Bonaire","Gas Heater"],"desc":"MB4 25U -25kW 4 Star Internal External","id":253},{"sku":"HGD5460020","name":"Bonaire MB4 30U 30kW","kw":"30","brand":"Bonaire","cat":"Gas Heater","trade":1936.47,"tags":["Bonaire","Gas Heater"],"desc":"MB4 30U -30kW 4 Star Internal External","id":254},{"sku":"HGD5640020","name":"Bonaire MB5 21kW","kw":"21","brand":"Bonaire","cat":"Gas Heater","trade":2048.24,"tags":["Bonaire","Gas Heater"],"desc":"MB5 21 -21kW 5 Star Non Condensing Internal External","id":257},{"sku":"HGD5660020","name":"Bonaire MB5 30kW","kw":"30","brand":"Bonaire","cat":"Gas Heater","trade":2340.0,"tags":["Bonaire","Gas Heater"],"desc":"MB5 30 -30kW 5 Star Non Condensing Internal External","id":258},{"sku":"094298","name":"Braemar MagIQtouch Control","kw":"—","brand":"Braemar","cat":"Evaporative","trade":136.62,"tags":["Braemar","Evaporative"],"desc":"MagIQtouch Control suit CPQ","id":276},{"sku":"L56BEIGE","name":"Brivis L56BEIGE","kw":"—","brand":"Brivis","cat":"Evaporative","trade":2602.42,"tags":["Brivis","Evaporative"],"desc":"","id":283},{"sku":"L66BEIGE","name":"Brivis L66BEIGE","kw":"—","brand":"Brivis","cat":"Evaporative","trade":2731.96,"tags":["Brivis","Evaporative"],"desc":"","id":286},{"sku":"L76BEIGE","name":"Brivis L76BEIGE","kw":"—","brand":"Brivis","cat":"Evaporative","trade":2915.95,"tags":["Brivis","Evaporative"],"desc":"","id":289},{"sku":"AJ050TXJ2KH/EA","name":"Samsung FJM 5.0kW 2-Port Outdoor","kw":"5.0","brand":"Samsung","cat":"Multi Split","trade":1143.53,"tags":["Samsung","Multi Split"],"desc":"FJM NASA, 2 ports, 5.0kW outdoor","id":370},{"sku":"AJ068TXJ3KH/EA","name":"Samsung FJM 6.8kW 3-Port Outdoor","kw":"6.8","brand":"Samsung","cat":"Multi Split","trade":1349.21,"tags":["Samsung","Multi Split"],"desc":"FJM NASA, 3 ports, 6.8kW outdoor","id":371},{"sku":"AJ080TXJ4KH/EA","name":"Samsung FJM 8.0kW 4-Port Outdoor","kw":"8.0","brand":"Samsung","cat":"Multi Split","trade":1446.09,"tags":["Samsung","Multi Split"],"desc":"FJM NASA, 4 ports, 8.0kW outdoor","id":372},{"sku":"AJ100TXJ5KH/EA","name":"Samsung FJM 10.0kW 5-Port Outdoor","kw":"10.0","brand":"Samsung","cat":"Multi Split","trade":1831.24,"tags":["Samsung","Multi Split"],"desc":"FJM NASA, 5 ports, 10.0kW outdoor","id":373},{"sku":"AJ125TXJ5KH/EA","name":"Samsung FJM 12.5kW 5-Port Outdoor","kw":"12.5","brand":"Samsung","cat":"Multi Split","trade":2152.06,"tags":["Samsung","Multi Split"],"desc":"FJM NASA, 5 ports, 12.5kW outdoor","id":374},{"sku":"MULMI0250B","name":"Midea Multi 5.2kW Outdoor","kw":"5.2","brand":"Midea","cat":"Multi Split","trade":863,"tags":["Midea","Multi Split"],"desc":"(2 Indoor) 5.2kW","id":401},{"sku":"MULMI0371B","name":"Midea Multi 7.1kW Outdoor","kw":"7.1","brand":"Midea","cat":"Multi Split","trade":1290,"tags":["Midea","Multi Split"],"desc":"(3 Indoor) 7.1kW","id":402},{"sku":"MULMI0480B","name":"Midea Multi 8.0kW Outdoor","kw":"8.0","brand":"Midea","cat":"Multi Split","trade":1343,"tags":["Midea","Multi Split"],"desc":"(4 Indoor) 8.0kW","id":403},{"sku":"MULMI0511B","name":"Midea Multi 10.5kW Outdoor","kw":"10.5","brand":"Midea","cat":"Multi Split","trade":1880,"tags":["Midea","Multi Split"],"desc":"(5 Indoor) 10.5kW","id":404},{"sku":"MULMI0513B","name":"Midea Multi 13.0kW Outdoor","kw":"13.0","brand":"Midea","cat":"Multi Split","trade":1738,"tags":["Midea","Multi Split"],"desc":"(5 Indoor) 13.0kW","id":405},{"sku":"MULMI0619B","name":"Midea Multi 19.0kW Outdoor","kw":"19.0","brand":"Midea","cat":"Multi Split","trade":2215,"tags":["Midea","Multi Split"],"desc":"(6 Indoor) 19.0kW","id":406},{"sku":"MDV-V200WN1","name":"Midea 21kW VRF Outdoor","kw":"21","brand":"Midea","cat":"VRF","trade":1763.53,"tags":["VRF","Midea"],"desc":"21kW VRF Outdoor","id":473},{"sku":"MIH28GHN18","name":"Midea 3.2kW VRF Indoor","kw":"3.2","brand":"Midea","cat":"VRF","trade":378.82,"tags":["VRF","Midea"],"desc":"3.2kW VRF Indoor","id":474},{"sku":"MIH36GHN18","name":"Midea 4kW VRF Indoor","kw":"4","brand":"Midea","cat":"VRF","trade":412.94,"tags":["VRF","Midea"],"desc":"4kW VRF Indoor","id":475},{"sku":"MIH45GHN18","name":"Midea 5kW VRF Indoor","kw":"5","brand":"Midea","cat":"VRF","trade":469.41,"tags":["VRF","Midea"],"desc":"5kW VRF Indoor","id":476},{"sku":"MIH56GHN18","name":"Midea 6.3kW VRF Indoor","kw":"6.3","brand":"Midea","cat":"VRF","trade":485.88,"tags":["VRF","Midea"],"desc":"6.3kW VRF Indoor","id":477},{"sku":"MIH71GHN18","name":"Midea 8kW VRF Indoor","kw":"8","brand":"Midea","cat":"VRF","trade":528.24,"tags":["VRF","Midea"],"desc":"8kW VRF Indoor","id":478},{"sku":"442337","name":"M VBox INS 931 x 260 BLK","cat":"Accessories","brand":"Polyaire","kw":"—","trade":null,"tags":["VBox","Return Air"],"desc":"Suits Toshiba RAV-GM, ME PEA-M 100/125/140 GAA.","id":507},{"sku":"443152","name":"M VBox INS 823 x 125 BLK","cat":"Accessories","brand":"Polyaire","kw":"—","trade":null,"tags":["VBox","Return Air"],"desc":"Suits Samsung AC052 ducted.","id":513},{"sku":"443153","name":"M VBox INS 1167 x 220 BLK","cat":"Accessories","brand":"Polyaire","kw":"—","trade":null,"tags":["VBox","Return Air"],"desc":"Suits Samsung AC071/090, Fujitsu ARTG36/45/54 LHTDP.","id":514},{"sku":"443167","name":"M VBox INS 1157 x 248 BLK","cat":"Accessories","brand":"Polyaire","kw":"—","trade":null,"tags":["VBox","Return Air"],"desc":"Suits Samsung AC100-160 TNHPKG.","id":520},{"sku":"443583","name":"M VBox INS 1287 x 363 BLK","cat":"Accessories","brand":"Polyaire","kw":"—","trade":null,"tags":["VBox","Return Air"],"desc":"Suits Samsung AC180/AC200.","id":523},{"sku":"444701","name":"M RTNA Plen INS 850 x 220 BLK","cat":"Accessories","brand":"Polyaire","kw":"—","trade":null,"tags":["Return Air Plenum","Return Air"],"desc":"Suits Samsung AC052.","id":530},{"sku":"444702","name":"M RTNA Plen INS 1167 x 220 BLK","cat":"Accessories","brand":"Polyaire","kw":"—","trade":null,"tags":["Return Air Plenum","Return Air"],"desc":"Suits Samsung AC071/090.","id":531},{"sku":"747111","name":"STAARK Pair Coil 1/4 x 3/8 — 20m","cat":"Pair Coil","brand":"STAARK","kw":"—","trade":138,"tags":["Pair Coil","STAARK"],"desc":"STAARK pre-insulated pair coil 1/4 x 3/8, 20 metre roll.","id":533},{"sku":"747112","name":"STAARK Pair Coil 1/4 x 1/2 — 20m","cat":"Pair Coil","brand":"STAARK","kw":"—","trade":179,"tags":["Pair Coil","STAARK"],"desc":"STAARK pre-insulated pair coil 1/4 x 1/2, 20 metre roll.","id":534},{"sku":"747113","name":"STAARK Pair Coil 1/4 x 5/8 — 20m","cat":"Pair Coil","brand":"STAARK","kw":"—","trade":227,"tags":["Pair Coil","STAARK"],"desc":"STAARK pre-insulated pair coil 1/4 x 5/8, 20 metre roll.","id":535},{"sku":"747114","name":"STAARK Pair Coil 3/8 x 5/8 — 20m","cat":"Pair Coil","brand":"STAARK","kw":"—","trade":258,"tags":["Pair Coil","STAARK"],"desc":"STAARK pre-insulated pair coil 3/8 x 5/8, 20 metre roll.","id":536},{"sku":"747115","name":"STAARK Pair Coil 3/8 x 3/4 — 20m","cat":"Pair Coil","brand":"STAARK","kw":"—","trade":359,"tags":["Pair Coil","STAARK"],"desc":"STAARK pre-insulated pair coil 3/8 x 3/4, 20 metre roll.","id":537},{"sku":"747131","name":"STAARK Pair Coil 1/4 x 3/8 Armaflex — 20m","cat":"Pair Coil","brand":"STAARK","kw":"—","trade":178,"tags":["Pair Coil","STAARK"],"desc":"STAARK pre-insulated pair coil 1/4 x 3/8 Armaflex, 20 metre roll.","id":538},{"sku":"747132","name":"STAARK Pair Coil 1/4 x 1/2 Armaflex — 20m","cat":"Pair Coil","brand":"STAARK","kw":"—","trade":199,"tags":["Pair Coil","STAARK"],"desc":"STAARK pre-insulated pair coil 1/4 x 1/2 Armaflex, 20 metre roll.","id":539},{"sku":"747133","name":"STAARK Pair Coil 1/4 x 5/8 Armaflex — 20m","cat":"Pair Coil","brand":"STAARK","kw":"—","trade":261,"tags":["Pair Coil","STAARK"],"desc":"STAARK pre-insulated pair coil 1/4 x 5/8 Armaflex, 20 metre roll.","id":540},{"sku":"747134","name":"STAARK Pair Coil 3/8 x 5/8 Armaflex — 20m","cat":"Pair Coil","brand":"STAARK","kw":"—","trade":292,"tags":["Pair Coil","STAARK"],"desc":"STAARK pre-insulated pair coil 3/8 x 5/8 Armaflex, 20 metre roll.","id":541},{"sku":"747135","name":"STAARK Pair Coil 3/8 x 3/4 Armaflex — 20m","cat":"Pair Coil","brand":"STAARK","kw":"—","trade":385,"tags":["Pair Coil","STAARK"],"desc":"STAARK pre-insulated pair coil 3/8 x 3/4 Armaflex, 20 metre roll.","id":542},{"sku":"757111","name":"STAARK Pair Coil 1/4 x 3/8 HD — 18m","cat":"Pair Coil","brand":"STAARK","kw":"—","trade":205,"tags":["Pair Coil","STAARK"],"desc":"STAARK pre-insulated pair coil 1/4 x 3/8 HD, 18 metre roll.","id":543},{"sku":"757112","name":"STAARK Pair Coil 1/4 x 1/2 HD — 18m","cat":"Pair Coil","brand":"STAARK","kw":"—","trade":211,"tags":["Pair Coil","STAARK"],"desc":"STAARK pre-insulated pair coil 1/4 x 1/2 HD, 18 metre roll.","id":544},{"sku":"757113","name":"STAARK Pair Coil 1/4 x 5/8 HD — 18m","cat":"Pair Coil","brand":"STAARK","kw":"—","trade":239,"tags":["Pair Coil","STAARK"],"desc":"STAARK pre-insulated pair coil 1/4 x 5/8 HD, 18 metre roll.","id":545},{"sku":"757114","name":"STAARK Pair Coil 3/8 x 5/8 HD — 18m","cat":"Pair Coil","brand":"STAARK","kw":"—","trade":329,"tags":["Pair Coil","STAARK"],"desc":"STAARK pre-insulated pair coil 3/8 x 5/8 HD, 18 metre roll.","id":546},{"sku":"757115","name":"STAARK Pair Coil 3/8 x 3/4 HD — 18m","cat":"Pair Coil","brand":"STAARK","kw":"—","trade":340,"tags":["Pair Coil","STAARK"],"desc":"STAARK pre-insulated pair coil 3/8 x 3/4 HD, 18 metre roll.","id":547},{"sku":"AT5-8Z","name":"AirTouch 5 — 8 Zone","kw":"—","brand":"AirTouch","cat":"Controls","trade":1220,"tags":["Controls","AirTouch","Zoning"],"desc":"AirTouch 5 controller 8 zone. Includes gateway.","id":559},{"sku":"AT5-16Z","name":"AirTouch 5 — 16 Zone","kw":"—","brand":"AirTouch","cat":"Controls","trade":1440,"tags":["Controls","AirTouch","Zoning"],"desc":"AirTouch 5 controller 16 zone. Includes gateway.","id":560},{"sku":"AT2-8Z","name":"AirTouch 2+ — 8 Zone","kw":"—","brand":"AirTouch","cat":"Controls","trade":999,"tags":["Controls","AirTouch","Zoning"],"desc":"AirTouch 2+ controller 8 zone. Includes gateway.","id":561},{"sku":"AT2-16Z","name":"AirTouch 2+ — 16 Zone","kw":"—","brand":"AirTouch","cat":"Controls","trade":1220,"tags":["Controls","AirTouch","Zoning"],"desc":"AirTouch 2+ controller 16 zone. Includes gateway.","id":562},{"sku":"087","name":"AirTouch Intelligent Temp Sensor","kw":"—","brand":"AirTouch","cat":"Controls","trade":96,"tags":["Controls","AirTouch","Zoning"],"desc":"AirTouch Intelligent Temperature Sensor (ITS).","id":563},{"sku":"122","name":"ZoneSwitch 6 Zone Kit","kw":"—","brand":"ZoneSwitch","cat":"Controls","trade":146,"tags":["Controls","ZoneSwitch","Zoning"],"desc":"ZoneSwitch 6 zone controller kit.","id":564},{"sku":"123","name":"ZoneSwitch 2 Zone Kit","kw":"—","brand":"ZoneSwitch","cat":"Controls","trade":65,"tags":["Controls","ZoneSwitch","Zoning"],"desc":"ZoneSwitch 2 zone controller kit.","id":565},{"sku":"675270","name":"AirTouch Beam","kw":"—","brand":"AirTouch","cat":"Controls","trade":90,"tags":["Controls","AirTouch","Zoning"],"desc":"AirTouch Beam. Wireless temperature sensor and zone controller.","id":558},{"sku":"865862","name":"STAARK Wall Bracket 400mm","kw":"—","brand":"STAARK","cat":"Accessories","trade":21,"tags":["Accessories","Bracket","STAARK"],"desc":"STAARK wall bracket 400mm. Suits most split system outdoor units.","id":566},{"sku":"865863","name":"STAARK Wall Bracket 450mm","kw":"—","brand":"STAARK","cat":"Accessories","trade":24,"tags":["Accessories","Bracket","STAARK"],"desc":"STAARK wall bracket 450mm.","id":567},{"sku":"865866","name":"STAARK Wall Bracket 550mm","kw":"—","brand":"STAARK","cat":"Accessories","trade":29,"tags":["Accessories","Bracket","STAARK"],"desc":"STAARK wall bracket 550mm.","id":568},{"sku":"865865","name":"STAARK Roof Stand 500mm Adjustable","kw":"—","brand":"STAARK","cat":"Accessories","trade":44,"tags":["Accessories","Bracket","STAARK"],"desc":"STAARK adjustable roof stand 500mm.","id":569},{"sku":"735515","name":"STAARK Ground Stand 350mm Plastic","kw":"—","brand":"STAARK","cat":"Accessories","trade":10,"tags":["Accessories","Bracket","STAARK"],"desc":"STAARK plastic unit ground stand 350mm.","id":570},{"sku":"735516","name":"STAARK Ground Stand 450mm Plastic","kw":"—","brand":"STAARK","cat":"Accessories","trade":18,"tags":["Accessories","Bracket","STAARK"],"desc":"STAARK plastic unit ground stand 450mm.","id":571}];
+
+let quoteItems=[],activeCat=null,activeBrand='all',aiMatched=[];
+const catalogueStr=products.map(p=>`ID:${p.id}|SKU:${p.sku}|Name:${p.name}|Cat:${p.cat}|Brand:${p.brand}|kW:${p.kw}|Trade:$${p.trade}`).join('\n');
+
+function fp(n){if(!n&&n!==0)return'POA';return '$'+Number(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');}
+function esc(s){return String(s).replace(/'/g,"\\'");}
+
+function getBrands(cat){return[...new Set(products.filter(p=>p.cat===cat).map(p=>p.brand))].sort();}
+
+function buildCatGrid(){
+  const regularTiles=CATS.map(c=>{
+    const count=products.filter(p=>p.cat===c.id).length;
+    return`<div class="cat-tile${activeCat===c.id?' active':''}" onclick="selectCat('${c.id}')">
+      <span class="cat-tile-icon">${c.icon}</span>
+      <div><div class="cat-tile-label">${c.label}</div><div class="cat-tile-count">${count} products</div></div>
+    </div>`;
+  }).join('');
+  const inzoneTile=`<div class="cat-tile" onclick="openInzone()" style="border-color:#0054A6;background:linear-gradient(135deg,#001f3f,#003d7a);color:white;">
+    <span class="cat-tile-icon">📋</span>
+    <div>
+      <div class="cat-tile-label" style="color:white;">InZone Flyer</div>
+      <div class="cat-tile-count" style="color:rgba(255,255,255,0.7);">Edition 16 · Mar–Apr 2026</div>
+    </div>
+  </div>`;
+  const slobTile=`<div class="cat-tile" onclick="openSlobTab()" style="border-color:var(--porange);background:#fff8f0;">
+    <span class="cat-tile-icon">🏷️</span>
+    <div><div class="cat-tile-label" style="color:var(--porange);">SLOB Stock</div></div>
+  </div>`;
+  document.getElementById('catGrid').innerHTML=regularTiles+inzoneTile+slobTile;
+}
+
+function openInzone(){
+  renderInzoneBody();
+  document.getElementById('inzonePanel').classList.add('open');
+  document.getElementById('inzonePanel').scrollTop=0;
+}
+
+function closeInzone(){
+  document.getElementById('inzonePanel').classList.remove('open');
+}
+
+function renderInzoneBody(){
+  const body=document.getElementById('inzoneBody');
+  let html='<div style="background:#fffbe6;border:1px solid #f59e0b;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:#92400e;font-weight:500;">⚠ All prices +GST. Valid to 30 April 2026. Check branch for stock availability.</div>';
+  INZONE_DATA.forEach(section=>{
+    html+=`<div class="inzone-section">
+      <div class="inzone-section-header">${section.section}</div>`;
+    if(section.note) html+=`<div class="inzone-note">${section.note}</div>`;
+    section.items.forEach(item=>{
+      html+=`<div class="inzone-row">
+        <div><div class="desc">${item.desc}</div><div class="sku">${item.sku}</div></div>
+        <div class="price">${fp(item.price)}</div>
+      </div>`;
+    });
+    html+=`</div>`;
+  });
+  body.innerHTML=html;
+}
+
+function openSlobTab(){
+  showTabByName('slob');
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  loadSlobList();
+}
+
+function selectCat(cat){
+  if(activeCat===cat){activeCat=null;activeBrand='all';buildCatGrid();document.getElementById('brandRow').style.display='none';document.getElementById('productList').innerHTML='';return;}
+  activeCat=cat;activeBrand='all';buildCatGrid();
+  const brands=getBrands(cat);
+  const br=document.getElementById('brandRow');
+  if(brands.length>1){
+    br.style.display='block';
+    br.innerHTML=`<div class="brand-row"><div class="brand-chip active" onclick="setBrand('all',this)">All</div>${brands.map(b=>`<div class="brand-chip" onclick="setBrand('${esc(b)}',this)">${b}</div>`).join('')}</div>`;
+  } else {br.style.display='none';}
+  renderCatProducts();
+  setTimeout(()=>document.getElementById('productList').scrollIntoView({behavior:'smooth',block:'start'}),100);
+}
+
+function setBrand(brand,el){
+  activeBrand=brand;
+  document.querySelectorAll('.brand-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  renderCatProducts();
+}
+
+function renderCatProducts(){
+  let list=products.filter(p=>p.cat===activeCat);
+  if(activeBrand!=='all')list=list.filter(p=>p.brand===activeBrand);
+  document.getElementById('productList').innerHTML=list.length?renderProducts(list):'<div class="empty-state"><span class="empty-state-icon">😕</span><div class="empty-state-text">No products found.</div></div>';
+}
+
+function renderProducts(list){
+  return list.map(p=>`<div class="product-card" onclick="openDetail(${p.id})">
+    <div class="product-card-header">
+      <div class="product-name">${p.name}</div>
+      <div class="product-sku">${p.sku.split('/')[0]}</div>
+    </div>
+    <div class="product-meta">
+      <span class="price-tag">${fp(p.trade)}</span>
+      ${p.kw&&p.kw!=='—'?`<span class="kw-pill">${p.kw}kW</span>`:''}
+    </div>
+  </div>`).join('');}
+
+function handleSearch(val){
+  const q=val.toLowerCase().trim();
+  const el=document.getElementById('searchResults');
+  if(!q){el.innerHTML='<div class="empty-state"><span class="empty-state-icon">🔍</span><div class="empty-state-text">Type to search products, SKUs or brands</div></div>';return;}
+  const results=products.filter(p=>p.name.toLowerCase().includes(q)||p.sku.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q)||p.brand.toLowerCase().includes(q)||(p.desc&&p.desc.toLowerCase().includes(q))||(p.kw&&(p.kw+'kw').toLowerCase().includes(q))||(p.tags&&p.tags.some(t=>t.toLowerCase().includes(q)))||(p.vbox_code&&p.vbox_code.toLowerCase().includes(q))||(p.pair_coil_code&&p.pair_coil_code.toLowerCase().includes(q)));
+  el.innerHTML=`<div class="section-title">${results.length} result${results.length!==1?'s':''}</div>`+(results.length?renderProducts(results):'<div class="empty-state"><span class="empty-state-icon">😕</span><div class="empty-state-text">Nothing matched "'+val+'"</div></div>');
+  showTabByName('search');
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+}
+
+function openDetail(id){
+  const p=products.find(x=>x.id===id);if(!p)return;
+  document.getElementById('detailTitle').textContent=p.name;
+  let accRows='';
+  if(p.vbox_code) accRows+=`<div class="info-row"><span class="info-label">M VBox</span><span class="info-value"><span style="font-family:monospace;font-size:11px;">${p.vbox_code}</span><br><span style="font-size:10px;color:var(--pm);">${p.vbox_desc||''}${p.vbox_note?'<br><span style="color:#b35f00;">⚠ '+p.vbox_note+'</span>':''}</span></span></div>`;
+  if(p.rap_code) accRows+=`<div class="info-row"><span class="info-label">Return Air Plenum</span><span class="info-value"><span style="font-family:monospace;font-size:11px;">${p.rap_code}</span><br><span style="font-size:10px;color:var(--pm);">${p.rap_desc||''}</span></span></div>`;
+  if(p.pair_coil_code) accRows+=`<div class="info-row"><span class="info-label">Pair Coil</span><span class="info-value"><span style="font-family:monospace;font-size:11px;">${p.pair_coil_code}</span><br><span style="font-size:10px;color:var(--pm);">${p.pair_coil_name||''}</span></span></div>`;
+  if(!p.vbox_code&&!p.pair_coil_code&&p.vbox_note) accRows+=`<div class="info-row"><span class="info-value" style="font-size:12px;color:#b35f00;">⚠ ${p.vbox_note}</span></div>`;
+  const accBlock=(accRows||p.vbox_note)?`<div class="info-card" style="border-color:rgba(0,84,166,0.35);background:#eef5ff;"><div class="info-card-title" style="color:var(--pb);">⚙ Required Accessories</div>${accRows}</div>`:'';
+  const priceBlock=p.trade?`<div class="price-block"><div class="price-block-trade"><div class="label">Trade Price (ex GST)</div><div class="amount">${fp(p.trade)}</div></div></div>`:`<div style="background:var(--pg);border-radius:10px;padding:12px;margin-bottom:10px;text-align:center;font-size:13px;color:var(--pm);border:1px solid var(--pborder);">No trade pricing on file — contact branch</div>`;
+  document.getElementById('detailBody').innerHTML=`
+    ${priceBlock}
+    <div class="action-btns">
+      <button class="action-btn primary" onclick="addToQuote(${p.id})">+ Add to Quote</button>
+      <button class="action-btn" onclick="copyText('${esc(p.sku.split('/')[0])}')">Copy SKU</button>
+    </div>
+    ${accBlock}
+    <div class="info-card">
+      <div class="info-card-title">Product Details</div>
+      <div class="info-row"><span class="info-label">SKU</span><span class="info-value" style="font-family:monospace;font-size:11px;">${p.sku}</span></div>
+      <div class="info-row"><span class="info-label">Brand</span><span class="info-value">${p.brand}</span></div>
+      <div class="info-row"><span class="info-label">Category</span><span class="info-value">${p.cat}</span></div>
+      ${p.kw&&p.kw!=='—'?`<div class="info-row"><span class="info-label">Capacity</span><span class="info-value">${p.kw}kW</span></div>`:''}
+    </div>
+    <div class="info-card">
+      <div class="info-card-title">Description</div>
+      <p style="font-size:13px;color:var(--pt);line-height:1.6;">${p.desc}</p>
+      <div class="tag-group">${(p.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+    </div>`;
+  document.getElementById('detailPanel').classList.add('open');
+  document.getElementById('detailPanel').scrollTop=0;
+}
+
+function closeDetail(){document.getElementById('detailPanel').classList.remove('open');}
+
+function addToQuote(id,qty){
+  const p=products.find(x=>x.id===id);
+  const ex=quoteItems.find(q=>q.id===id);
+  if(ex){ex.qty+=(qty||1);}else{quoteItems.push({...p,qty:qty||1});}
+  updateQuoteCount();showToast('Added to quote');closeDetail();
+}
+
+function updateQuoteCount(){
+  const total=quoteItems.reduce((s,q)=>s+q.qty,0);
+  const badge=document.getElementById('quote-count');
+  badge.textContent=total;badge.style.display=total>0?'inline':'none';
+  renderQuote();
+}
+
+function changeQty(id,delta){
+  const item=quoteItems.find(q=>q.id===id);if(!item)return;
+  item.qty+=delta;
+  if(item.qty<=0)quoteItems=quoteItems.filter(q=>q.id!==id);
+  updateQuoteCount();
+}
+
+function renderQuote(){
+  const el=document.getElementById('quoteItems');
+  const tot=document.getElementById('quoteTotal');
+  if(!quoteItems.length){
+    el.innerHTML='<div class="empty-state"><span class="empty-state-icon">📋</span><div class="empty-state-text">No items in quote yet.<br>Browse the catalogue or use the Email tab<br>to auto-build a quote from a customer email.</div></div>';
+    tot.innerHTML='';return;
+  }
+  el.innerHTML=quoteItems.map(q=>`
+    <div class="quote-item">
+      <div class="quote-item-info">
+        <div class="quote-item-name">${q.name}</div>
+        <div class="quote-item-sku">${q.sku.split('/')[0]}</div>
+      </div>
+      <div class="quote-qty">
+        <button class="qty-btn" onclick="changeQty(${q.id},-1)">−</button>
+        <span class="qty-display">${q.qty}</span>
+        <button class="qty-btn" onclick="changeQty(${q.id},1)">+</button>
+      </div>
+      <div class="quote-price">${fp(q.trade*q.qty)}</div>
+    </div>`).join('');
+  const sub=quoteItems.reduce((s,q)=>s+q.trade*q.qty,0);
+  const gst=sub*0.1;
+  tot.innerHTML=`
+    <div class="quote-total">
+      <div class="quote-total-row"><span class="muted">Subtotal (ex GST)</span><span>${fp(sub)}</span></div>
+      <div class="quote-total-row"><span class="muted">GST (10%)</span><span>${fp(gst)}</span></div>
+      <div class="quote-total-row big"><span>Total (inc GST)</span><span>${fp(sub+gst)}</span></div>
+    </div>
+    <button class="action-btn primary full" style="width:100%;padding:14px;border-radius:10px;font-size:15px;margin-top:0;" onclick="showToast('PDF export — coming in full build')">Export Quote PDF</button>`;
+}
+
+function showTabByName(name){
+  ['catalogue','search','email','quote','slob'].forEach(t=>{
+    const el=document.getElementById(t+'-tab');
+    if(el)el.style.display=t===name?'flex':'none';
+    if(el&&t===name&&(t==='catalogue'||t==='search'||t==='email'||t==='slob'))el.style.display='block';
+    if(el&&t===name&&t==='quote')el.style.display='flex';
+  });
+}
+
+function showTab(name,btn){
+  showTabByName(name);
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(name==='quote')renderQuote();
+  if(name==='slob')loadSlobList();
+  if(name==='catalogue'&&document.getElementById('searchInput').value){
+    document.getElementById('searchInput').value='';
+  }
+}
+
+function copyText(text){
+  if(navigator.clipboard){navigator.clipboard.writeText(text).catch(()=>{});}
+  showToast('Copied: '+text);
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+async function analyseEmail(){
+  const emailText=document.getElementById('emailInput').value.trim();
+  if(!emailText){showToast('Please paste an email first');return;}
+  const btn=document.getElementById('analyseBtn');
+  btn.disabled=true;
+  btn.innerHTML='<div class="spinner"></div>&nbsp; Analysing with AI...';
+  const resultEl=document.getElementById('aiResult');
+  resultEl.innerHTML='';resultEl.classList.remove('show');
+  const prompt=`You are an assistant for Polyaire, an Australian HVAC wholesaler. Read this customer quote request email and:\n1. Summarise in 1-2 sentences what they want\n2. Match each product request to the best match from our catalogue\n\nCATALOGUE:\n${catalogueStr}\n\nCUSTOMER EMAIL:\n${emailText}\n\nRespond ONLY with valid JSON (no markdown, no extra text):\n{"customerName":"name or Unknown","summary":"what they want","matched":[{"productId":1,"qty":2,"reason":"why this product"}],"unmatched":[{"request":"what they asked for","reason":"why no match found"}]}`;
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
+    });
+    const data=await resp.json();
+    const raw=(data.content?.[0]?.text||'').replace(/```json|```/g,'').trim();
+    const parsed=JSON.parse(raw);
+    aiMatched=parsed.matched||[];
+    renderEmailResult(parsed);
+  }catch(e){
+    resultEl.innerHTML=`<div class="email-summary-card"><div class="summary-text" style="color:#b91c1c;">Could not analyse the email. Please check your internet connection and try again.</div></div>`;
+    resultEl.classList.add('show');
+  }
+  btn.disabled=false;
+  btn.innerHTML='<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>&nbsp; Analyse with AI';
+}
+
+function renderEmailResult(parsed){
+  const resultEl=document.getElementById('aiResult');
+  const mH=(parsed.matched||[]).map(m=>{
+    const p=products.find(x=>x.id===m.productId);if(!p)return'';
+    return`<div class="matched-product">
+      <span class="matched-badge">✓ MATCHED</span>
+      <div style="font-size:13px;font-weight:600;color:var(--pt);margin-bottom:3px;padding-right:72px;">${p.name}</div>
+      <div style="font-size:10px;color:var(--pm);font-family:monospace;margin-bottom:8px;">${p.sku}</div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px;">
+        <span style="font-size:15px;font-weight:700;color:var(--pb);">${fp(p.trade)}</span>
+        <span style="font-size:10px;background:var(--pb-light);color:var(--pb-dark);padding:2px 7px;border-radius:10px;">Qty: ${m.qty||1}</span>
+      </div>
+      <div style="font-size:11px;color:var(--pm);font-style:italic;">${m.reason}</div>
+      <button onclick="addToQuote(${p.id},${m.qty||1})" style="width:100%;margin-top:10px;padding:10px;background:var(--pb-light);color:var(--pb);border:1.5px solid var(--pb);border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">+ Add to Quote</button>
+    </div>`;
+  }).join('');
+  const uH=(parsed.unmatched||[]).map(u=>`
+    <div class="unmatched-product">
+      <span class="unmatched-badge">⚠ NOT IN CATALOGUE</span>
+      <div style="font-size:13px;font-weight:500;color:var(--pt);margin-top:4px;">${u.request}</div>
+      <div style="font-size:11px;color:var(--pm);font-style:italic;margin-top:4px;">${u.reason}</div>
+    </div>`).join('');
+  const addBtn=parsed.matched?.length?`
+    <button class="ai-add-all-btn" onclick="addAllMatched()">+ Add All ${parsed.matched.length} Products to Quote</button>
+    <button class="clear-btn" onclick="clearEmail()">Clear &amp; Start Over</button>`:'';
+  resultEl.innerHTML=`
+    <div class="email-summary-card">
+      <div class="from">From: ${parsed.customerName||'Unknown'}</div>
+      <div class="summary-text">${parsed.summary}</div>
+    </div>
+    ${parsed.matched?.length?`<div class="section-title">${parsed.matched.length} product${parsed.matched.length!==1?'s':''} matched from catalogue</div>`:''}
+    ${mH}
+    ${parsed.unmatched?.length?`<div class="section-title" style="color:var(--porange);">${parsed.unmatched.length} item${parsed.unmatched.length!==1?'s':''} not found</div>`:''}
+    ${uH}
+    <div style="margin-top:12px;">${addBtn}</div>`;
+  resultEl.classList.add('show');
+}
+
+function addAllMatched(){
+  aiMatched.forEach(m=>{
+    const p=products.find(x=>x.id===m.productId);if(!p)return;
+    const ex=quoteItems.find(q=>q.id===p.id);
+    if(ex){ex.qty+=(m.qty||1);}else{quoteItems.push({...p,qty:m.qty||1});}
+  });
+  updateQuoteCount();
+  showToast(`${aiMatched.length} products added to quote`);
+  showTabByName('quote');
+  document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active',i===2));
+  renderQuote();
+}
+
+function clearEmail(){
+  document.getElementById('emailInput').value='';
+  document.getElementById('aiResult').classList.remove('show');
+  document.getElementById('aiResult').innerHTML='';
+  aiMatched=[];
+}
+
+function renderSlobItem(item){
+  const wdColor=item.writedown_pct>=100?'#b91c1c':item.writedown_pct>=65?'#b35f00':'#1a7a3c';
+  const wdBg=item.writedown_pct>=100?'#fef2f2':item.writedown_pct>=65?'#fff3e0':'#eaf5ee';
+  return`<div class="product-card" style="cursor:default;">
+    <div class="product-card-header">
+      <div class="product-name">${item.desc}</div>
+      <div class="product-sku">${item.sku.split('/')[0]}</div>
+    </div>
+    <div class="product-meta" style="gap:6px;">
+      <span style="font-size:12px;font-weight:600;color:var(--pb);">Qty: ${item.qty}</span>
+      <span style="font-size:10px;padding:2px 7px;border-radius:10px;background:${wdBg};color:${wdColor};font-weight:600;">WD ${item.writedown_pct}%</span>
+      <span style="font-size:10px;color:var(--pm);">WDV $${item.wdv.toFixed(2)}</span>
+      <span style="font-size:10px;background:var(--pg);color:var(--pm);padding:2px 7px;border-radius:10px;border:0.5px solid var(--pborder);">${item.brand}</span>
+    </div>
+  </div>`;
+}
+
+function loadSlobList(){renderSlobFiltered(slobData);}
+
+function filterSlob(q){
+  if(!q.trim()){renderSlobFiltered(slobData);return;}
+  const ql=q.toLowerCase();
+  const filtered=slobData.filter(item=>item.sku.toLowerCase().includes(ql)||item.desc.toLowerCase().includes(ql)||item.brand.toLowerCase().includes(ql));
+  renderSlobFiltered(filtered);
+}
+
+function renderSlobFiltered(items){
+  const el=document.getElementById('slobList');
+  if(!items.length){el.innerHTML='<div class="empty-state"><span class="empty-state-icon">🔍</span><div class="empty-state-text">No SLOB items match your search.</div></div>';return;}
+  el.innerHTML=`<div class="section-title">${items.length} item${items.length!==1?'s':''} — ${items.reduce((s,i)=>s+i.qty,0)} units total</div>`+items.map(renderSlobItem).join('');
+}
+
+
+// Init
+buildCatGrid();
+showTabByName('catalogue');
+document.getElementById('quote-tab').style.flexDirection='column';
+
+window.addEventListener('popstate',()=>{
+  if(document.getElementById('detailPanel').classList.contains('open')){closeDetail();return;}
+  if(document.getElementById('inzonePanel').classList.contains('open')){closeInzone();}
+});
+</script>
+</body>
+</html>
